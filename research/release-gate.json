@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "project": "erdos-minimum-overlap-lower-bound",
+  "evaluated_at": "2026-09-02",
+  "candidate_claim": null,
+  "gates": {
+    "significant_original_result": false,
+    "prior_art_refreshed": false,
+    "rigorous_certificate_retained": false,
+    "independent_verifier_one_passes": false,
+    "independent_verifier_two_passes": false,
+    "clean_checkout_replay_passes": false,
+    "claim_scope_audited": false,
+    "limitations_documented": true,
+    "manuscript_ready": false,
+    "external_review_addressed": false
+  },
+  "decision": "hold",
+  "reason": "No project-original certified lower-bound improvement has been established."
+}
+

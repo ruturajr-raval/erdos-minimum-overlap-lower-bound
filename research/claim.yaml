@@ -1,0 +1,27 @@
+schema_version: 1
+project: erdos-minimum-overlap-lower-bound
+author: Ruturaj R Raval
+orcid: 0000-0003-4930-8981
+updated: 2026-09-02
+status: exploratory
+target:
+  type: certified-lower-bound
+  object: erdos-minimum-overlap-constant
+  goal: exceed-the-strongest-independently-verified-prior-lower-bound
+current_supported_claim:
+  statement: The licensed Station certificate establishes c_E > 0.380552 under two verification implementations.
+  project_original: false
+candidate_claim:
+  statement: null
+  certified_value: null
+  certificate_sha256: null
+  verifier_commits: []
+novelty:
+  literature_checked_through: 2026-09-02
+  comparison_threshold: "0.38055470"
+  threshold_status: conservative-unverified-prior-art-comparison
+limitations:
+  - No project-original lower-bound improvement is currently certified.
+  - The exact value of c_E remains open.
+  - Exploratory optimizer output is not a proof.
+
