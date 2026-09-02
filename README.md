@@ -1,5 +1,7 @@
 # Erdos Minimum-Overlap Lower Bound
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22260847.svg)](https://doi.org/10.5281/zenodo.22260847)
+
 A reproducible verification, proof-audit, and certificate-search toolkit for
 Erdos's 1955 minimum-overlap problem.
 

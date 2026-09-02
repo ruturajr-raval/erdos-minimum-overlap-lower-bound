@@ -7,6 +7,9 @@ authors:
   - family-names: Raval
     given-names: Ruturaj R
 repository-code: "https://github.com/ruturajr-raval/erdos-minimum-overlap-lower-bound"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.22260848"
 license: Apache-2.0
 version: 0.1.1
 date-released: 2026-09-02

@@ -49,4 +49,7 @@ audit, and external mathematical review.
 ## Citation
 
 Citation metadata is provided in `CITATION.cff`, and `.zenodo.json` supplies
-the metadata for durable release archival.
+the metadata for durable release archival. The archived `v0.1.1` release DOI
+is [10.5281/zenodo.22260848](https://doi.org/10.5281/zenodo.22260848). The
+stable concept DOI for all versions is
+[10.5281/zenodo.22260847](https://doi.org/10.5281/zenodo.22260847).
