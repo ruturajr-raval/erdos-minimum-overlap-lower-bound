@@ -1,0 +1,76 @@
+{
+  "schema": "minimum-overlap-evidence-v2",
+  "campaign_id": "MOP-001",
+  "status": "active_reproducibility",
+  "generated_at": "2026-09-01",
+  "environment": {
+    "os": "macOS 26.6.2 (25G83)",
+    "architecture": "arm64",
+    "cpu": "Apple M4 Pro",
+    "python": "3.12.13",
+    "numpy": "2.4.6",
+    "python_flint": "0.9.0",
+    "mpfi": "1.5.4",
+    "mpfr": "4.2.2",
+    "gmp": "6.3.0"
+  },
+  "sources": {
+    "station_v2": {
+      "repository": "dualverse-ai/station_data_v2",
+      "commit": "2d410f29192c6a5afc7d64e43d879d91c84f8411",
+      "framework_commit": "7dad811a784b55b13f4ceabc2d9f449f8dbc6caf",
+      "license": "Apache-2.0",
+      "vendored": true,
+      "artifacts": {
+        "autocorr_6_5_certificate_data.npz": "c9fdb2881874c4797acca21be2ab4fcf7b7a43e75ed763ce1f17d17e269e7453",
+        "mpfi_positive_budget.c": "a967d8dfd18456a80c79984c69eb28b88a7548bf001c505455f97808a704274d"
+      }
+    },
+    "stronger_prior_art": {
+      "repository": "Leeham06972452/erdos-36-lower-bound",
+      "commit": "6bc610e40083ef61a40966dfb5d38612cabc4c5b",
+      "commit_date": "2026-07-01T03:46:34+01:00",
+      "declared_license": null,
+      "vendored": false,
+      "reuse_policy": "provenance and independently observed facts only",
+      "artifacts": {
+        "certificate_json": "a2c723d375073bd124c04a690200ca9bf8f598eac506656e1ac9a883e6f4f217",
+        "arb_verifier": "a825b28f0dd8b8db8f225bcd8af48374c013f2f59de97bdb3d8d8cd62a49f11e",
+        "proof_note_tex": "28b29a454b9498f93c944be9eae3eed0ebffc78cc3c592ebd974042413d209d9"
+      }
+    },
+    "formal_conjectures": {
+      "tag": "v4.33.1",
+      "commit": "fd5c0ab5d1a77c2dfc6bd1102e40a350e6a02965",
+      "mathlib_commit": "0df444a360eaa60ab8c11dca51a86af692955474",
+      "erdos_36_status": "statement only; proof body is sorry"
+    },
+    "clean_room_arb_verifier": {
+      "implementation_sha256": "556c81869a93e8dfee58f6b3a1582bf9fab5d9041fdae8011e8a533815a54a9c",
+      "test_sha256": "394e8b1d136704ed9270c84b8de8ad9a8754a3d7dd9fb33b9d6e05378ac7802e",
+      "backend": "python-flint 0.9.0 / Arb",
+      "license": "Apache-2.0",
+      "implementation_boundary": "Independent parser, arithmetic backend, traversal, accounting, and endpoint extraction; shared Station certificate formulas and Taylor argument."
+    }
+  },
+  "reproduced_claims": [
+    {
+      "id": "station-v2-lower-bound",
+      "claim": "c_E > 0.380552",
+      "certified_global_lower_decimal": "0.3805522573898302221073764624943583626449657018962",
+      "status": "replayed_by_reference_mpfi_and_clean_room_arb_backends",
+      "evidence": [
+        "evidence/station-replay.json",
+        "evidence/station-arb-replay.json"
+      ]
+    },
+    {
+      "id": "july-2026-prior-art",
+      "claim": "c_E > 0.38055470",
+      "status": "original_checker_replayed_all_172_bins",
+      "novelty_owner": "prior art; not this project",
+      "evidence": "evidence/prior-art-replay.json"
+    }
+  ],
+  "project_novel_claims": []
+}

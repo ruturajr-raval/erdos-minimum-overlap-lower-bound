@@ -1,0 +1,25 @@
+schema: minimum-overlap-review-v1
+campaign_id: MOP-001
+status: completed_artifact_verification
+checks:
+  - role: semantic-proof-audit
+    status: passed
+  - role: separate-arb-implementation
+    status: passed
+findings:
+  - severity: high
+    status: mitigated
+    summary: The raw upstream MPFI executable can accept NaN input; the project wrapper now validates rows and all reported numeric fields before accepting a run.
+  - severity: high
+    status: documented
+    summary: The unlicensed prior-art checker accepts a negative rhs_inflate option; this replay used positive 1e-14, and no general trust is placed in that checker.
+  - severity: medium
+    status: documented
+    summary: Prior-art report variants differ in the worst denominator near 1.9e-16; the provenance replay checks only the repository-reported decimal target 0.38055470.
+  - severity: theorem_gate
+    status: theorem_gate_open
+    summary: No project candidate exceeds the July 2026 repository-reported comparison target; this does not block release of the reproducibility artifact.
+  - severity: theorem_gate
+    status: theorem_gate_open
+    summary: External mathematical review is not complete; this blocks a project-original theorem announcement, not artifact release.
+disposition: artifact_release_ready_theorem_not_established

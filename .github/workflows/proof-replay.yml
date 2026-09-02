@@ -1,0 +1,22 @@
+name: Full Proof Replay
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d
+        with:
+          python-version: "3.12"
+          enable-cache: true
+      - run: sudo apt-get update
+      - run: sudo apt-get install -y libgmp-dev libmpfi-dev libmpfr-dev
+      - run: uv sync --all-groups --locked
+      - run: make verify

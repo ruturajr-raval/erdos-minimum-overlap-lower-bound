@@ -1,0 +1,51 @@
+{
+  "schema": "minimum-overlap-prior-art-replay-v1",
+  "run_date": "2026-09-01",
+  "source_repository": "https://github.com/Leeham06972452/erdos-36-lower-bound",
+  "source_commit": "6bc610e40083ef61a40966dfb5d38612cabc4c5b",
+  "source_commit_date": "2026-07-01T03:46:34+01:00",
+  "declared_license": null,
+  "source_material_vendored": false,
+  "repository_reported_target": "0.38055470",
+  "certificate_sha256": "a2c723d375073bd124c04a690200ca9bf8f598eac506656e1ac9a883e6f4f217",
+  "verifier_sha256": "a825b28f0dd8b8db8f225bcd8af48374c013f2f59de97bdb3d8d8cd62a49f11e",
+  "replay_environment": {
+    "python": "3.12.13",
+    "python_flint": "0.9.0",
+    "numpy": "2.4.6",
+    "scipy": "1.16.3",
+    "arb_precision_bits": 160,
+    "rhs_inflate": "1e-14"
+  },
+  "coverage": {
+    "bins": 172,
+    "ranges": [[0, 84], [85, 88], [89, 171]],
+    "all_bins_exactly_once": true,
+    "all_bins_passed": true
+  },
+  "aggregate": {
+    "worst_bin_indices": [85, 86],
+    "worst_bins": [["-0.003125", "-0.0"], ["0.0", "0.003125"]],
+    "worst_D_upper_ball": "[2.62774311482846624816341282417938362013339656298833735366348 +/- 2.29e-60]",
+    "target_D_decimal": "2.627743133904271843180494157607303233937197464648314683802354825732016974169547768034398208720060480",
+    "D_margin_decimal": "1.9075805595017081333427919613803800901659977330138874825732016974169547768034398208720060480E-8",
+    "inverse_worst_D_center_decimal": "0.3805547027625940429660016453737815601895863854992165458548135938172947356199699860973477429494662521",
+    "repository_reported_claim_replayed": "c_E > 0.38055470",
+    "stronger_digits_status": "diagnostic non-strict benchmark only"
+  },
+  "chunk_report_sha256": [
+    "ff47cdf080b7a60c264102b3bbe63657fd71762bcf3fcea1709c42c2c9a34fc9",
+    "0baf8bdc1e2deaaf45141828962185ae181106594f1e7f434ce0cbf08f67dd96",
+    "a8a69a9db9d3f379cfc1def8674e5a17dc89cd85f125f18cae0ecc1bb0b92503"
+  ],
+  "checker_audit": {
+    "configuration_used_is_sound_for_the_replayed_target": true,
+    "general_purpose_checker_safe": false,
+    "findings": [
+      "The source checker accepts a negative rhs_inflate option; this replay used positive 1e-14.",
+      "Chunk reports do not cryptographically bind every checker setting and artifact hash.",
+      "The source aggregate and this replay differ near 1.9e-16 in the worst denominator, far below the reported-target margin."
+    ]
+  },
+  "interpretation": "Original-checker provenance replay of a repository-reported target. This is not an independent validation, a separate verifier, or a result of this project."
+}

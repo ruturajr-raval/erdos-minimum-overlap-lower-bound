@@ -1,0 +1,32 @@
+campaign_id: MOP-001
+title: Erdos minimum-overlap lower-bound verification and search
+status: active_reproducibility
+owner: Ruturaj R Raval
+started: 2026-09-01
+artifact_role: reproducibility and proof-audit toolkit
+supported_claim: authenticated replay and independent audit of the licensed Station certificate, plus provenance-only original-checker replay of a stronger repository-reported target
+baseline:
+  licensed_reproduced_source: Station v2
+  licensed_reproduced_decimal: "0.380552257389830222107376462494"
+  licensed_reproduced_claim: "c_E > 0.380552"
+repository_reported_comparison:
+  source: Leeham06972452/erdos-36-lower-bound
+  commit: 6bc610e40083ef61a40966dfb5d38612cabc4c5b
+  posted: 2026-07-01
+  repository_reported_claim: "c_E > 0.38055470"
+  verification_status: original_checker_replayed
+  license_status: no_declared_license
+  vendored: false
+success:
+  minimum_delta_above_repository_reported_target: "0.00000010"
+  minimum_project_candidate_target: "0.38055480"
+  stretch_bound: "0.3806"
+acceptance:
+  - upstream certificate replays unchanged
+  - candidate is checked with outward-rounded arithmetic
+  - independent verifier agrees
+  - semantic proof audit has no blocker
+  - prior-art search is refreshed before any new-result announcement
+stopping_rules:
+  - stop discovery if the baseline cannot be reproduced
+  - stop a tranche after ten completed search families without a certified improvement

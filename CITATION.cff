@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the repository release."
+title: "Verification Toolkit for the Erdos Minimum-Overlap Lower Bound"
+type: software
+abstract: "Reproducibility and separate arithmetic verification of the Station c_E > 0.380552 certificate; no project-original lower bound is claimed."
+authors:
+  - family-names: Raval
+    given-names: Ruturaj R
+repository-code: "https://github.com/ruturajr-raval/erdos-minimum-overlap-lower-bound"
+license: Apache-2.0
+version: 0.1.0
+date-released: 2026-09-02

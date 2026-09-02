@@ -1,0 +1,65 @@
+{
+  "schema": "minimum-overlap-station-arb-replay-v1",
+  "run_date": "2026-09-01",
+  "source_commit": "2d410f29192c6a5afc7d64e43d879d91c84f8411",
+  "certificate_sha256": "c9fdb2881874c4797acca21be2ab4fcf7b7a43e75ed763ce1f17d17e269e7453",
+  "implementation_sha256": "556c81869a93e8dfee58f6b3a1582bf9fab5d9041fdae8011e8a533815a54a9c",
+  "test_sha256": "394e8b1d136704ed9270c84b8de8ad9a8754a3d7dd9fb33b9d6e05378ac7802e",
+  "command": "uv run minoverlap verify-independent",
+  "backend": {
+    "name": "python-flint Arb",
+    "python_flint": "0.9.0",
+    "precision_bits": 192
+  },
+  "independence_boundary": {
+    "independent": [
+      "authenticated ZIP/NPY parser without NumPy",
+      "exact decimal-to-rational parser",
+      "Arb arithmetic backend",
+      "adaptive cell traversal and accounting",
+      "antiderivative evaluation",
+      "endpoint extraction and exact global aggregation"
+    ],
+    "shared": [
+      "licensed Station certificate rows",
+      "dual row formula",
+      "Taylor enclosure argument",
+      "support-charge formula"
+    ]
+  },
+  "all_rows_passed": true,
+  "certified_global_lower_exact": "34761109204075504328831181038606592296158412287483178804531400633292823999400117951/91343852333181432387730302044767688728495783936000000000000000000000000000000000000",
+  "certified_global_lower_decimal": "0.380552257389830222107376462494879195688460654561293290595690614719281742712915328720539277",
+  "margin_above_released_target": "0.000000257389830222107376462494879195688460654561293290595690614719281742712915328720539277",
+  "full_output_sha256": "664e27baaf8ffc29ca85091546011913cba33b56dc3966cd9f6eefa9ec008cea",
+  "rows": [
+    {
+      "index": 0,
+      "total_positive_part_upper_decimal": "0.999999999976307388832795863873029055732672803617624045028982",
+      "quadratic_c0_lower_decimal": "0.380553385726178104971549433082520829688460654561293290595691",
+      "terminal_cells": 130,
+      "budget_pass": true
+    },
+    {
+      "index": 1,
+      "total_positive_part_upper_decimal": "0.999999690243467324831192453740843303589927582282240842764841",
+      "quadratic_c0_lower_decimal": "0.380535903684482958019035618142443545320008854824067515895242",
+      "terminal_cells": 118,
+      "budget_pass": true
+    },
+    {
+      "index": 2,
+      "total_positive_part_upper_decimal": "0.999681961109477957695821414411898531769082871393941176906835",
+      "quadratic_c0_lower_decimal": "0.380157336168305731734844629480717698843132611945123427441887",
+      "terminal_cells": 20,
+      "budget_pass": true
+    },
+    {
+      "index": 3,
+      "total_positive_part_upper_decimal": "0.999663207801089424577051384677755367847793689922336609388154",
+      "quadratic_c0_lower_decimal": "0.369791719552889297350385845427700765739988651329882857954506",
+      "terminal_cells": 13,
+      "budget_pass": true
+    }
+  ]
+}
