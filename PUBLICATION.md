@@ -1,11 +1,11 @@
-# Release v0.1.0
+# Release v0.1.1
 
 ## What Was Done
 
-This release authenticates and replays the licensed Station certificate for
-Erdos's minimum-overlap problem, implements a separate Python and Arb
-verification, audits the proof reduction, and records reproducible routes
-toward stronger bounds.
+This archival patch refreshes the release and citation metadata after Zenodo
+integration was enabled. It republishes the authenticated Station certificate
+replay, separate Python and Arb verification, and proof audit without changing
+the mathematical claims or retained evidence.
 
 ## Supported Claim
 
@@ -48,5 +48,5 @@ audit, and external mathematical review.
 
 ## Citation
 
-Citation metadata is provided in `CITATION.cff`. The release metadata in
-`.zenodo.json` is prepared for durable archival.
+Citation metadata is provided in `CITATION.cff`, and `.zenodo.json` supplies
+the metadata for durable release archival.

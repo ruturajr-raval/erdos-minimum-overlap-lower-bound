@@ -1,6 +1,6 @@
 schema: minimum-overlap-release-v1
 campaign_id: MOP-001
-version: 0.1.0
+version: 0.1.1
 release_date: 2026-09-02
 artifact_role: reproducibility and proof-audit toolkit
 supported_claim: authenticated replay and independent audit of the licensed Station certificate, plus provenance-only original-checker replay of a stronger repository-reported target
