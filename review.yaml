@@ -1,25 +1,45 @@
-schema: minimum-overlap-review-v1
+schema: minimum-overlap-review-v2
 campaign_id: MOP-001
-status: completed_artifact_verification
+status: internal_certification_complete
+reviewed_at: 2026-09-04
 checks:
-  - role: semantic-proof-audit
+  - role: mathematical-semantics-audit
     status: passed
-  - role: separate-arb-implementation
+  - role: prior-art-audit
     status: passed
+  - role: independent-numerical-audit
+    status: passed
+  - role: python-arb-verifier
+    status: passed
+  - role: mpfi-c-verifier
+    status: passed
+  - role: noncentral-coverage-replay
+    status: passed
+  - role: external-mathematical-review
+    status: pending
 findings:
   - severity: high
-    status: mitigated
-    summary: The raw upstream MPFI executable can accept NaN input; the project wrapper now validates rows and all reported numeric fields before accepting a run.
+    status: resolved
+    summary: The center claim initially had only one directed-arithmetic implementation; an independent strict MPFI/C verifier now passes.
   - severity: high
-    status: documented
-    summary: The unlicensed prior-art checker accepts a negative rhs_inflate option; this replay used positive 1e-14, and no general trust is placed in that checker.
+    status: resolved
+    summary: The global theorem depends on 170 Price bins; all were rerun at the project target and the dependency is hash-pinned without redistribution.
   - severity: medium
+    status: resolved
+    summary: Exact decimal frequencies and multipliers are rational, while sinc-squared right-hand sides remain exact transcendental values enclosed independently by each verifier.
+  - severity: medium
+    status: resolved
+    summary: The certificate, both verifier sources, evidence, and manuscript are bound to one target and certificate hash.
+  - severity: medium
+    status: resolved
+    summary: The MPFI launcher now passes an unlinked open descriptor containing the exact bytes it parsed and hashed, eliminating path-replacement races.
+  - severity: low
+    status: resolved
+    summary: Certificate dimensions and subdivision settings are bounded, and the C verifier enforces a hard ten-million-cell traversal budget.
+  - severity: limitation
     status: documented
-    summary: Prior-art report variants differ in the worst denominator near 1.9e-16; the provenance replay checks only the repository-reported decimal target 0.38055470.
-  - severity: theorem_gate
-    status: theorem_gate_open
-    summary: No project candidate exceeds the July 2026 repository-reported comparison target; this does not block release of the reproducibility artifact.
-  - severity: theorem_gate
-    status: theorem_gate_open
-    summary: External mathematical review is not complete; this blocks a project-original theorem announcement, not artifact release.
-disposition: artifact_release_ready_theorem_not_established
+    summary: The optimizer stopped at iteration limits, so no optimality claim is made.
+  - severity: limitation
+    status: open
+    summary: Independent external mathematical review is not complete.
+disposition: certified_preprint_release_ready

@@ -1,7 +1,7 @@
 {
-  "title": "Verification Toolkit for the Erdos Minimum-Overlap Lower Bound",
+  "title": "A Certified Lower Bound for the Erdos Minimum-Overlap Problem",
   "upload_type": "software",
-  "description": "Authenticated MPFI replay and separate Python and Arb verification of the Station c_E > 0.380552 certificate. No project-original lower bound is claimed.",
+  "description": "A project-original center certificate, combined with Price's published noncentral certificates, establishes c_E > 0.38055925. The release includes independent Python-Arb and MPFI/C verification, a proof manuscript, and provenance records.",
   "creators": [
     {
       "name": "Raval, Ruturaj R"
@@ -15,5 +15,5 @@
     "reproducible research",
     "rigorous numerics"
   ],
-  "version": "0.1.1"
+  "version": "0.2.0"
 }

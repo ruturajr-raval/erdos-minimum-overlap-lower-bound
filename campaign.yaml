@@ -1,26 +1,35 @@
 campaign_id: MOP-001
 title: Erdos minimum-overlap lower-bound verification and search
-status: active_reproducibility
+status: certified_lower_bound
 owner: Ruturaj R Raval
 started: 2026-09-01
-artifact_role: reproducibility and proof-audit toolkit
-supported_claim: authenticated replay and independent audit of the licensed Station certificate, plus provenance-only original-checker replay of a stronger repository-reported target
+artifact_role: certified lower-bound theorem, certificate, and verification toolkit
+supported_claim: a project-original center certificate combined with Price's published noncentral certificates establishes c_E > 0.38055925
 baseline:
   licensed_reproduced_source: Station v2
   licensed_reproduced_decimal: "0.380552257389830222107376462494"
   licensed_reproduced_claim: "c_E > 0.380552"
 repository_reported_comparison:
-  source: Leeham06972452/erdos-36-lower-bound
-  commit: 6bc610e40083ef61a40966dfb5d38612cabc4c5b
-  posted: 2026-07-01
-  repository_reported_claim: "c_E > 0.38055470"
-  verification_status: original_checker_replayed
-  license_status: no_declared_license
+  source: emerardd/erdos-36-lower-bound-0380557
+  commit: 0913ca8ebab68927e5f16026ea7c45070634d737
+  posted: 2026-09-03
+  repository_reported_claim: "c_E > 0.380557"
+  best_recorded_certificate_capability: "0.3805581795278582246"
+  verification_status: independently_replayed
+  license_status: mixed_mit_and_excluded_price_dependency
   vendored: false
 success:
   minimum_delta_above_repository_reported_target: "0.00000010"
-  minimum_project_candidate_target: "0.38055480"
+  minimum_project_candidate_target: "0.38055830"
   stretch_bound: "0.3806"
+result:
+  certified_target: "0.38055925"
+  certificate: certificates/center-038055925.tsv
+  certificate_sha256: b02a45a645337c74215a365e82f403990eeb9413e3f8771e719e5e5397da39e8
+  center_verifiers:
+    - python-flint Arb
+    - MPFI/C
+  noncentral_bins: Price certificate, 170 of 170 replayed at the project target
 acceptance:
   - upstream certificate replays unchanged
   - candidate is checked with outward-rounded arithmetic

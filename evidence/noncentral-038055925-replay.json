@@ -1,0 +1,49 @@
+{
+  "schema": "minimum-overlap-noncentral-replay-v1",
+  "run_date": "2026-09-04",
+  "target": "0.38055925",
+  "source_repository": "https://github.com/Leeham06972452/erdos-36-lower-bound",
+  "source_commit": "6bc610e40083ef61a40966dfb5d38612cabc4c5b",
+  "declared_license": null,
+  "source_material_vendored": false,
+  "reuse_policy": "citation, provenance, hashes, and independently observed facts only",
+  "inputs": {
+    "certificate_path": "certificate/erdos_aug_central_gridF400.json",
+    "certificate_sha256": "a2c723d375073bd124c04a690200ca9bf8f598eac506656e1ac9a883e6f4f217",
+    "verifier_path": "certificate/prove_erdos_0380554275_arb.py",
+    "verifier_sha256": "a825b28f0dd8b8db8f225bcd8af48374c013f2f59de97bdb3d8d8cd62a49f11e"
+  },
+  "command": "python certificate/prove_erdos_0380554275_arb.py certificate/erdos_aug_central_gridF400.json --target 0.38055925 --prec 160 --cell-width 0.0001 --root-pad 0.0001 --samples 120001 --max-nodes 50000000 --rhs-inflate 1e-14 --only-bins 0-84,87-171 --csv noncentral-038055925.csv --json-report noncentral-038055925.json",
+  "coverage": {
+    "total_mean_bins": 172,
+    "checked_bins": 170,
+    "checked_ranges": [[0, 84], [87, 171]],
+    "replaced_center_bins": [85, 86],
+    "all_checked_bins_passed": true,
+    "tiny_endpoint_gaps_repaired_conservatively": 1
+  },
+  "settings": {
+    "arb_precision_bits": 160,
+    "cell_width": "0.0001",
+    "root_pad": "0.0001",
+    "samples": 120001,
+    "max_nodes": 50000000,
+    "rhs_inflate": "1e-14"
+  },
+  "result": {
+    "target_denominator_ball": "[2.62771171637530818131473614161263981889810850741 +/- 4.42e-48]",
+    "worst_bin_index": 77,
+    "worst_bin": ["-0.03749999999999998", "-0.02499999999999991"],
+    "worst_denominator_upper": "2.62753853087337579001951203472096736772801915677226053504110",
+    "certified_noncentral_lower_ball": "[0.3805843333028524065953742628507534461931198366 +/- 7.45e-47]",
+    "total_nodes": 300291,
+    "total_ambiguous_cells": 11102,
+    "maximum_speed_roots": 46
+  },
+  "unretained_output_hashes": {
+    "csv_sha256": "92f68435e5bfd080c0a332013258ac8d1d9e847a8ef06503e34bbe160a5a06ad",
+    "json_sha256": "a02a1d74839d4d18f5187da5515ac1b4267967f723a92d1ed52c6cb52397befc",
+    "log_sha256": "16d233dc699119587c1018fab4c05e463b776a8e06e10167624c7acebf65cf46"
+  },
+  "interpretation": "The 170 cited noncentral bins all certify the project target. The unlicensed source package and generated reports are not redistributed."
+}

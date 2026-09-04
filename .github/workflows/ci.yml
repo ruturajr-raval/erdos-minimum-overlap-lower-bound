@@ -16,6 +16,8 @@ jobs:
         with:
           python-version: "3.12"
           enable-cache: true
+      - run: sudo apt-get update
+      - run: sudo apt-get install -y libgmp-dev libmpfi-dev libmpfr-dev
       - run: uv sync --all-groups --locked
       - run: make test
       - run: make lint

@@ -2,26 +2,31 @@ schema_version: 1
 project: erdos-minimum-overlap-lower-bound
 author: Ruturaj R Raval
 orcid: 0000-0003-4930-8981
-updated: 2026-09-02
-status: exploratory
+updated: 2026-09-04
+status: certified
 target:
   type: certified-lower-bound
   object: erdos-minimum-overlap-constant
   goal: exceed-the-strongest-independently-verified-prior-lower-bound
 current_supported_claim:
-  statement: The licensed Station certificate establishes c_E > 0.380552 under two verification implementations.
-  project_original: false
+  statement: A project-original center certificate, combined with Price's published noncentral certificates, establishes c_E > 0.38055925.
+  project_original: true
+  project_original_scope: replacement certificate for mean bins 85 and 86
+  cited_scope: Price's Arb-certified bounds for the other 170 mean bins
 candidate_claim:
-  statement: null
-  certified_value: null
-  certificate_sha256: null
-  verifier_commits: []
+  statement: c_E > 0.38055925
+  certified_value: "0.38055925"
+  certificate_sha256: b02a45a645337c74215a365e82f403990eeb9413e3f8771e719e5e5397da39e8
+  verifier_implementations:
+    - src/minoverlap/center_certificate.py
+    - verification/center_mpfi.c
 novelty:
-  literature_checked_through: 2026-09-02
-  comparison_threshold: "0.38055470"
-  threshold_status: conservative-unverified-prior-art-comparison
+  literature_checked_through: 2026-09-04
+  strongest_located_stated_claim: "0.380557"
+  strongest_located_recorded_certificate_capability: "0.3805581795278582246"
+  project_margin_above_recorded_capability: "0.0000010704721417754"
 limitations:
-  - No project-original lower-bound improvement is currently certified.
   - The exact value of c_E remains open.
-  - Exploratory optimizer output is not a proof.
-
+  - The noncentral portion cites Price's published certificate.
+  - Independent external mathematical review is not yet complete.
+  - The retained multipliers are certified but not claimed to be optimal.

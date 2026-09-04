@@ -1,21 +1,20 @@
 {
   "schema_version": 1,
   "project": "erdos-minimum-overlap-lower-bound",
-  "evaluated_at": "2026-09-02",
-  "candidate_claim": null,
+  "evaluated_at": "2026-09-04",
+  "candidate_claim": "c_E > 0.38055925",
   "gates": {
-    "significant_original_result": false,
-    "prior_art_refreshed": false,
-    "rigorous_certificate_retained": false,
-    "independent_verifier_one_passes": false,
-    "independent_verifier_two_passes": false,
+    "significant_original_result": true,
+    "prior_art_refreshed": true,
+    "rigorous_certificate_retained": true,
+    "independent_verifier_one_passes": true,
+    "independent_verifier_two_passes": true,
     "clean_checkout_replay_passes": false,
-    "claim_scope_audited": false,
+    "claim_scope_audited": true,
     "limitations_documented": true,
-    "manuscript_ready": false,
+    "manuscript_ready": true,
     "external_review_addressed": false
   },
-  "decision": "hold",
-  "reason": "No project-original certified lower-bound improvement has been established."
+  "decision": "prepare_release",
+  "reason": "The certified result is significant and exceeds the refreshed prior-art threshold. Clean-checkout replay remains before release; external review will be requested from the public preprint."
 }
-

@@ -3,21 +3,17 @@
 This directory records the search for a project-original certified lower bound
 for the Erdos minimum-overlap constant.
 
-The current repository release is a reproducibility and proof-audit artifact.
-It does not establish a new lower bound. Work in this branch is promoted only
-after it produces a claim that is both stronger than the refreshed prior-art
-frontier and independently replayable from retained evidence.
+The current research branch contains a certified project-original center
+certificate. Combined with Price's published noncentral bins, it establishes
+`c_E > 0.38055925`. Promotion still requires a clean-checkout replay and final
+release review.
 
 ## Active Target
 
-Construct and rigorously certify a lower bound above the strongest verified
-public result. The comparison threshold must be refreshed immediately before a
-novelty claim is made.
-
-The initial search family uses all eight retained `E8f` anchors, continuous
-mixtures, hardening-aware optimization, and adaptive column generation. A
-rigorous upper bracket will be computed for this family before moving to a
-larger semidefinite relaxation.
+Freeze and publish the certified `c_E > 0.38055925` result without weakening
+its provenance or claim boundaries. The retained center certificate uses
+adaptive cosine-frequency column generation and is accepted by independent
+Python-Arb and MPFI/C implementations.
 
 ## Records
 
@@ -44,4 +40,3 @@ A result is ready for promotion only when all of the following hold:
 6. The manuscript and repository state the limitations and remaining gap.
 7. Independent mathematical review has been requested and any material
    objections have been resolved.
-

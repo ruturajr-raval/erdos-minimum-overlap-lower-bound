@@ -1,0 +1,98 @@
+{
+  "schema": "minimum-overlap-center-verification-v1",
+  "run_date": "2026-09-04",
+  "target": "0.38055925",
+  "certificate": {
+    "path": "certificates/center-038055925.tsv",
+    "sha256": "b02a45a645337c74215a365e82f403990eeb9413e3f8771e719e5e5397da39e8",
+    "schema": "minimum-overlap-center-certificate-v1",
+    "mean_interval": ["-0.003125", "0.003125"],
+    "second_moment_rows": 1,
+    "cosine_rows": 107,
+    "parseval_rows": 1,
+    "parseval_order": 100,
+    "decimal_semantics": "frequencies and multipliers are exact rational decimals; each sinc-squared right-hand side is the exact transcendental value enclosed by directed arithmetic"
+  },
+  "python_arb": {
+    "implementation": "src/minoverlap/center_certificate.py",
+    "implementation_sha256": "4c11223d3b5d65d47df9dca385574ccd21537f804540208942facb1ec8102065",
+    "command": "uv run minoverlap verify-center certificates/center-038055925.tsv --precision 256 --initial-cells 4096 --max-depth 16",
+    "backend": "python-flint 0.9.0 / Arb",
+    "precision_bits": 256,
+    "initial_cells": 4096,
+    "max_depth": 16,
+    "denominator_upper": "2.62771117229660911576595873921872273522375331010198935876644",
+    "target_denominator": "2.62771171637530818131473614161263981889810850741376014378839",
+    "denominator_margin": "0.000000544078699065548777402393917083674355197311770785021941399245",
+    "uncertain_rectangle_upper": "0.0000000000000000107060913432838108275806973305973040351710997767395830445420",
+    "audit": {
+      "negative_cells": 4805,
+      "positive_cells": 5903,
+      "split_cells": 6732,
+      "terminal_cells": 120,
+      "max_depth_seen": 16
+    },
+    "unretained_output_sha256": "d79546caf4297edc4963a33a0f3015839dcee222d9968cadb8656058c5da454c"
+  },
+  "mpfi_c": {
+    "implementation": "verification/center_mpfi.c",
+    "implementation_sha256": "2b662976d5b5adec5db6580958f6344ad3a059d2cb12243630b9cb7040911379",
+    "command": "uv run minoverlap verify-center-mpfi certificates/center-038055925.tsv --precision 256 --initial-cells 4096 --max-depth 16",
+    "backend": "MPFI 1.5.4 / MPFR 4.2.2 / GMP 6.3.0",
+    "precision_bits": 256,
+    "initial_cells": 4096,
+    "max_depth": 16,
+    "denominator_upper": "2.627711172296609115765958701268201763538",
+    "target_denominator_lower": "2.627711716375308181314736141612639818898",
+    "denominator_margin_lower": "0.0000005440786990655487774403444380553601380208",
+    "uncertain_rectangle_upper": "0.00000000000000001070609130533328985589491450707138667727",
+    "audit": {
+      "visited_cells": 17560,
+      "negative_cells": 4805,
+      "positive_cells": 5903,
+      "split_cells": 6732,
+      "terminal_cells": 120,
+      "max_depth_seen": 16
+    },
+    "additional_checks": [
+      "128-bit replay passed",
+      "18 adversarial parser and proof-failure cases returned expected exit codes",
+      "Clang static analysis passed",
+      "AddressSanitizer and UndefinedBehaviorSanitizer passed",
+      "launcher binds the digest to an unlinked descriptor containing the exact verified bytes",
+      "ten-million-cell traversal budget enforced"
+    ],
+    "unretained_output_sha256": "395735be4d52b5394123e698e50bc3d7ad9fcdf8612e335a813fa0843589a4a2"
+  },
+  "independence_boundary": {
+    "shared": [
+      "canonical certificate bytes",
+      "analytic row formulas",
+      "Taylor classification argument",
+      "elementary antiderivative formula"
+    ],
+    "python_arb_specific": [
+      "Python parser",
+      "python-flint Arb arithmetic",
+      "Python adaptive traversal and accounting",
+      "Arb endpoint extraction"
+    ],
+    "mpfi_c_specific": [
+      "C parser and exact decimal-to-mpq conversion",
+      "MPFI and MPFR arithmetic",
+      "C adaptive traversal and accounting",
+      "MPFR endpoint extraction"
+    ]
+  },
+  "independent_numerical_audit": {
+    "roots": 120,
+    "positive_intervals": 60,
+    "narrowest_positive_interval_width": "0.000546",
+    "shallowest_positive_peak": "0.0000000000922",
+    "mesh_steps_checked": ["0.00002", "0.000004", "0.000001"],
+    "derivative_root_isolation_agreed": true,
+    "root_free_quadrature_agreement": "within 2e-14",
+    "optimizer_optimality_claimed": false
+  },
+  "conclusion": "Both directed-arithmetic implementations strictly certify the frozen center certificate at c_E > 0.38055925."
+}
