@@ -76,11 +76,14 @@ def test_separate_arb_replay_independently_matches_station_claim() -> None:
     assert "dual row formula" in boundary["shared"]
 
 
-def test_prior_art_is_recorded_without_becoming_a_project_claim() -> None:
+def test_prior_art_is_separated_from_the_project_claim() -> None:
     evidence = load_json("evidence.json")
     prior_art = load_json("evidence/prior-art-replay.json")
 
-    assert evidence["project_novel_claims"] == []
+    claims = evidence["project_novel_claims"]
+    assert isinstance(claims, list)
+    assert len(claims) == 1
+    assert claims[0]["claim"] == "c_E > 0.38055925"
     assert prior_art["source_material_vendored"] is False
     assert prior_art["declared_license"] is None
     assert prior_art["repository_reported_target"] == "0.38055470"
@@ -88,3 +91,38 @@ def test_prior_art_is_recorded_without_becoming_a_project_claim() -> None:
     assert isinstance(coverage, dict)
     assert coverage["all_bins_exactly_once"] is True
     assert coverage["all_bins_passed"] is True
+
+
+def test_noncentral_replay_covers_every_unreplaced_mean_bin() -> None:
+    replay = load_json("evidence/noncentral-038055925-replay.json")
+
+    assert replay["target"] == "0.38055925"
+    assert replay["source_material_vendored"] is False
+    coverage = replay["coverage"]
+    assert isinstance(coverage, dict)
+    assert coverage["total_mean_bins"] == 172
+    assert coverage["checked_bins"] == 170
+    assert coverage["replaced_center_bins"] == [85, 86]
+    assert coverage["all_checked_bins_passed"] is True
+
+
+def test_project_center_certificate_has_two_independent_verification_paths() -> None:
+    evidence = load_json("evidence/center-038055925-verification.json")
+
+    assert evidence["target"] == "0.38055925"
+    certificate = evidence["certificate"]
+    assert isinstance(certificate, dict)
+    assert artifact_sha256(ROOT / certificate["path"]) == certificate["sha256"]
+
+    python_arb = evidence["python_arb"]
+    mpfi_c = evidence["mpfi_c"]
+    assert isinstance(python_arb, dict)
+    assert isinstance(mpfi_c, dict)
+    assert artifact_sha256(ROOT / python_arb["implementation"]) == (
+        python_arb["implementation_sha256"]
+    )
+    assert artifact_sha256(ROOT / mpfi_c["implementation"]) == (
+        mpfi_c["implementation_sha256"]
+    )
+    assert Decimal(python_arb["denominator_margin"]) > 0
+    assert Decimal(mpfi_c["denominator_margin_lower"]) > 0

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "project": "erdos-minimum-overlap-lower-bound",
+  "evaluated_at": "2026-09-04",
+  "candidate_claim": "c_E > 0.38055925",
+  "clean_checkout_commit": "bc4115ff1108962fe19af30a88bf1ca7a0adddc1",
+  "gates": {
+    "significant_original_result": true,
+    "prior_art_refreshed": true,
+    "rigorous_certificate_retained": true,
+    "independent_verifier_one_passes": true,
+    "independent_verifier_two_passes": true,
+    "clean_checkout_replay_passes": true,
+    "claim_scope_audited": true,
+    "limitations_documented": true,
+    "manuscript_ready": true,
+    "external_review_addressed": false
+  },
+  "decision": "release",
+  "reason": "The certified result is significant, exceeds the refreshed prior-art threshold, and passes a full clean-checkout replay. External review will be requested from the public preprint."
+}

@@ -1,31 +1,47 @@
-# Release v0.1.1
+# Release v0.2.0
 
-## What Was Done
+## Main Result
 
-This archival patch refreshes the release and citation metadata after Zenodo
-integration was enabled. It republishes the authenticated Station certificate
-replay, separate Python and Arb verification, and proof audit without changing
-the mathematical claims or retained evidence.
+This release proves
 
-## Supported Claim
+```text
+c_E > 0.38055925
+```
 
-The Station certificate establishing `c_E > 0.380552` is reproducible with
-the retained MPFI verifier and with a separate implementation that does not
-invoke or link against it.
+for the Erdos minimum-overlap constant.
 
-## Not Claimed
+The project-original contribution is a replacement certificate for the two
+central mean bins. The proof cites Price's published Arb-certified bounds for
+the other 170 bins.
 
-- The Station bound is not claimed as project-original.
-- The repository-only `c_E > 0.38055470` claim is replayed with its original
-  checker but is not independently validated here.
-- No new lower bound or determination of `c_E` is claimed.
+## Verification
 
-## Evidence
+The frozen center certificate is accepted by:
 
-`evidence.json` records source commits, artifact digests, replay reports, and
-claim boundaries. `docs/PROOF_AUDIT.md` records the audited mathematical
-reduction. `THIRD_PARTY_NOTICES.md` records the licensing and modification
-boundary. `release-manifest.sha256` authenticates the principal release files.
+1. a Python implementation using python-flint and Arb;
+2. an independent C implementation using MPFI, MPFR, and GMP.
+
+Both use exact decimal certificate semantics, directed transcendental
+evaluation, adaptive Taylor classification, and rigorous positive-part
+integration. Their parser, arithmetic, traversal, accounting, and endpoint
+code are independently implemented.
+
+All 170 reused Price bins were rerun at target `0.38055925` and passed.
+
+## Artifacts
+
+- `certificates/center-038055925.tsv`
+- `src/minoverlap/center_certificate.py`
+- `verification/center_mpfi.c`
+- `paper/main.tex`
+- `evidence/center-038055925-verification.json`
+- `evidence/noncentral-038055925-replay.json`
+
+The center certificate SHA-256 is:
+
+```text
+b02a45a645337c74215a365e82f403990eeb9413e3f8771e719e5e5397da39e8
+```
 
 ## Reproduction
 
@@ -39,17 +55,23 @@ make verify
 make audit
 ```
 
-## Limitations And Remaining Work
+## Claim Boundary
 
-The stronger repository-reported comparison target still requires a separate
-implementation. A project-original result requires a certificate above that
-target, two directed-arithmetic verification paths, a refreshed prior-art
-audit, and external mathematical review.
+This release claims a new certified lower bound. It does not claim:
 
-## Citation
+- the exact value of `c_E`;
+- optimality of the retained multipliers;
+- project originality for Price's noncentral certificate;
+- redistribution rights for Price's unlicensed source package;
+- completion of independent external mathematical review.
 
-Citation metadata is provided in `CITATION.cff`, and `.zenodo.json` supplies
-the metadata for durable release archival. The archived `v0.1.1` release DOI
-is [10.5281/zenodo.22260848](https://doi.org/10.5281/zenodo.22260848). The
-stable concept DOI for all versions is
-[10.5281/zenodo.22260847](https://doi.org/10.5281/zenodo.22260847).
+## Citation And Archive
+
+Citation metadata is in `CITATION.cff`. Zenodo integration uses the stable
+concept DOI:
+
+```text
+10.5281/zenodo.22260847
+```
+
+Zenodo assigns the version DOI when the GitHub release is archived.

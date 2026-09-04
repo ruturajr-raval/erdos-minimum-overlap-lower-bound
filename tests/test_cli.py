@@ -9,3 +9,5 @@ def test_cli_exposes_research_gates() -> None:
     assert "audit" in help_text
     assert "verify-baseline" in help_text
     assert "verify-independent" in help_text
+    assert "verify-center" in help_text
+    assert "verify-center-mpfi" in help_text

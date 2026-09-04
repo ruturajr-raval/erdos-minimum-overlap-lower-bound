@@ -21,5 +21,13 @@ No mathematical novelty is claimed by vendoring or replaying those artifacts.
 The repository `Leeham06972452/erdos-36-lower-bound` was inspected as prior art and its
 original checker was executed at commit
 `6bc610e40083ef61a40966dfb5d38612cabc4c5b`. It had no declared license when inspected
-on 2026-09-01. None of its code, certificate data, generated reports, or proof text is
+through 2026-09-04. None of its code, certificate data, generated reports, or proof text is
 distributed in this repository.
+
+The repository `emerardd/erdos-36-lower-bound-0380557` and Zenodo concept
+record `10.5281/zenodo.22279894` were inspected as prior art at commit
+`0913ca8ebab68927e5f16026ea7c45070634d737`. Its original project material is
+MIT-licensed, while its redistributed Price dependency is excluded from that
+license. No source, certificate, or proof text from that repository is copied
+here. Mathematical facts and numerical comparison values are credited in the
+prior-art record and manuscript.

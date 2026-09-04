@@ -2,267 +2,183 @@
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22260847.svg)](https://doi.org/10.5281/zenodo.22260847)
 
-A reproducible verification, proof-audit, and certificate-search toolkit for
-Erdos's 1955 minimum-overlap problem.
+This repository proves the certified lower bound
 
-This repository authenticates and replays the licensed Station certificate
-establishing `c_E > 0.380552`, implements a separate Python and Arb
-verification that does not invoke or link against the retained MPFI verifier,
-audits the proof reduction, and records search routes toward stronger bounds.
+```text
+c_E > 0.38055925
+```
 
-The supported claim is reproducibility of the Station certificate under two
-implementations. This project does not claim the Station bound as
-project-original, independently validate the repository-only
-`c_E > 0.38055470` claim, or determine `c_E`.
+for the Erdos minimum-overlap problem.
+
+The project-original contribution is an even replacement certificate for the
+two central mean bins. The other 170 mean bins use Liam Price's previously
+published Arb-certified bounds. The new center certificate is accepted by two
+separate directed-arithmetic implementations:
+
+- Python with python-flint and Arb
+- C with MPFI, MPFR, and GMP
+
+The exact value of `c_E` remains open.
 
 ## The Problem
 
-Partition the integers
+Partition
 
 ```text
 {1, 2, ..., 2N} = A disjoint-union B
 ```
 
-into two sets of equal size. For an integer shift `x`, define
+into two sets of size `N`. For an integer shift `d`, count the pairs
 
 ```text
-O_x(A, B) = number of pairs (a, b) in A x B with a - b = x.
+(a, b) in A x B with b - a = d.
 ```
 
-Equivalently, `O_x(A, B)` is the size of the overlap between `A` and the
-translate `B + x`. Let
+Let `R(A, B)` be the largest such count over all shifts, and minimize it over
+all balanced partitions. The asymptotic constant is
 
 ```text
-M(N) = min over balanced partitions of max over x of O_x(A, B).
-```
-
-The asymptotic minimum-overlap constant is
-
-```text
-c_E = limit as N tends to infinity of M(N) / N.
+c_E = liminf as N tends to infinity of
+      (1/N) min over balanced partitions R(A, B).
 ```
 
 The question is to determine `c_E`.
 
-In plain language: no matter how evenly and cleverly the integers are divided
-into two camps, some translation of one camp must overlap the other many times.
-The constant `c_E` measures the smallest unavoidable peak overlap.
+In plain language, every balanced two-coloring of consecutive integers has a
+translation where many opposite-colored points coincide. The constant measures
+the smallest unavoidable peak overlap.
 
-## Background And Research Status
+## Main Result
 
-Paul Erdos posed the problem in 1955 and initially conjectured that the answer
-was `1/2`. The exact constant was still unknown when this project began on
-2026-09-01, more than seven decades later.
+The manuscript in [`paper/main.tex`](paper/main.tex) proves:
 
-Several long-lived gaps shaped the problem:
+> **Theorem.** The Erdos minimum-overlap constant satisfies
+> `c_E > 0.38055925`.
 
-The table distinguishes peer-reviewed results, preprints, and repository-only
-computational claims. Its status date is 2026-09-01.
+The proof separates the mean of the continuous overlap density into 172 bins.
 
-| Year | Development | Evidence status |
+| Mean region | Certificate used | Verified denominator upper |
+| --- | --- | ---: |
+| Central bins 85 and 86, `|mu| <= 1/320` | Project-original certificate | `2.627711172296609116` |
+| Other 170 bins | Price's published certificate | `2.627538530873375791` |
+| Required threshold | `1 / 0.38055925` | `2.627711716375308181...` |
+
+Both denominator bounds are strictly below the threshold. The finite maximum
+over all 172 bins is therefore also strictly below the threshold, which gives
+the uniform strict lower bound.
+
+## Background
+
+Paul Erdos posed the problem in 1955 and conjectured that the constant was
+`1/2`. The exact value has resisted structural and computational methods for
+more than seventy years.
+
+Selected lower-bound developments are:
+
+| Year | Result | Status |
 | ---: | --- | --- |
-| 1955 | Erdos posed the problem, proved the elementary upper bound `c_E <= 1/2`, and conjectured equality. | Published paper |
-| 1959 | Moser established the classical lower bound `c_E >= 0.35639395869...`. | Published paper |
-| 1996 | Haugland, using a theorem of Swinnerton-Dyer, established the continuous optimization framework and a substantially better upper construction. | Published paper |
-| 2016 | Haugland improved the upper bound to `0.3809268534330870`. | Preprint |
-| 2022 | White raised the lower bound to `0.379005`, ending a lower-bound benchmark that had lasted about 63 years. | Preprint |
-| 2025-2026 | Larger step-function constructions reduced the reported upper bound further, to approximately `0.380856`. | Preprint |
-| 2026 | New interval-certified lower-bound work reached `0.37912`. | Preprint |
-| 2026 | Chung et al. released the Station certificate establishing `c_E > 0.380552`. | Preprint and Apache-2.0 certificate |
-| 2026 | A separate repository claimed `c_E > 0.38055470`. | Repository-only computational claim |
+| 1959 | Moser proved the classical lower bound `0.35639395869...` | Published |
+| 2022 | White raised the lower bound to `0.379005` | Preprint |
+| 2026 | Chung et al. released a certificate for `c_E > 0.380552` | Preprint and Apache-2.0 artifacts |
+| 2026-07 | Price published a repository certificate for `c_E > 0.38055470` | Public computational result |
+| 2026-09-03 | Deng published a certified result `c_E > 0.380557` | Repository, preprint, and Zenodo archive |
+| 2026-09-04 | This project certifies `c_E > 0.38055925` | This repository |
 
-As of the 2026-09-01 audit, recent preprints reported an upper bound near
-`0.380856`. The Station paper reported `c_E > 0.380552` and released the
-four-row interval certificate audited here. A separate repository claimed
-`c_E > 0.38055470`. This project reproduced that repository's checker output
-but has not independently reimplemented or verified the stronger claim. The
-repository declared no license, so no source code, certificate data, or proof
-text was copied.
+The dated prior-art audit found no public result above the effective numerical
+capability of Deng's retained center certificate, approximately
+`0.380558179527858...`. The present certified target exceeds that comparison
+point by approximately `1.07047e-6`.
 
-For this project's search, `0.38055470` is used as a conservative internal
-comparison threshold. It is not presented here as an independently established
-record. Compared with the reported upper construction `0.380856`, it leaves a
-numerical interval of `0.00030130`, subject to independent confirmation of the
-stronger lower claim. The exact constant and extremal structure remain open.
+Recent upper-bound constructions remain near `0.380856`, so a numerical gap of
+about `0.00029675` remains.
 
-## What This Project Did
+## New Certificate
 
-The work was organized around a strict separation between mathematical claims,
-reproduction evidence, and exploratory computation.
+For the central mean range `|mu| <= 1/320`, the certificate uses:
 
-1. Authenticated the licensed Station v2 certificate and pinned every retained
-   artifact by commit and SHA-256 digest.
-2. Replayed the four-row Station certificate with its original MPFI verifier,
-   recovering the certified bound
-   `c_E > 0.380552257389830222107376462494358...`.
-3. Built a separate Python, FLINT, and Arb verifier for the licensed Station
-   certificate. It does not invoke or link against the retained MPFI verifier,
-   and it independently certifies the same released claim.
-4. Audited the discrete-to-continuous reduction, Fourier identities, dual
-   inequalities, positive-part integration, and the strictness argument.
-5. Replayed the stronger `c_E > 0.38055470` prior-art checker over all 172 mean
-   bins using the source repository's original checker. No unlicensed source,
-   certificate, report, or proof text is vendored or reused in the project
-   implementation.
-6. Hardened unsafe checker boundaries. In particular, the project wrapper
-   rejects non-finite values, duplicate fields, negative budgets, and
-   over-budget rows before invoking the preserved reference executable.
-7. Diagnosed why the licensed Station search family does not yet clear the
-   stronger threshold and localized the active low-mean bottleneck.
-8. Ranked concrete next search routes and recorded acceptance gates for any
-   future certificate.
+- one exact second-moment inequality;
+- 107 pointwise Fourier inequalities
+  `C_xi <= sinc(xi)^2`;
+- one Parseval energy inequality truncated at order `100`;
+- nonnegative exact-decimal multipliers.
 
-## What Was Achieved
+These rows define an even function
 
-This project resolved a reproducibility and trust question, not the full Erdos
-problem.
+```text
+q(t) = 1
+     + lambda_2 (B_2 - t^2)
+     + sum_xi lambda_xi (sinc(xi)^2 - cos(xi t))
+     + lambda_P (1/2 + sum_{n=1}^{100} cos(n pi t)).
+```
 
-| Question | Outcome |
-| --- | --- |
-| Is the licensed Station `c_E > 0.380552` result reproducible? | Yes. |
-| Does an independent arithmetic implementation agree? | Yes. |
-| Does the proof reduction support the certificate semantics? | Yes, for the audited framework. |
-| Can the stronger public `0.38055470` checker reproduce its own claim? | Yes, over all 172 bins. |
-| Has that stronger claim been independently reimplemented here? | No. |
-| Did this project prove a new lower bound? | No. |
-| Did this project determine `c_E`? | No. |
+The positive-part dual principle gives
 
-The main deliverable is a trustworthy baseline from which a genuinely new
-certificate can be judged. It also prevents two common failure modes in
-computer-assisted mathematics: mistaking a successful program run for an
-independent proof, and claiming novelty below an existing but poorly indexed
-result.
+```text
+||p||_infinity >= 1 / integral max(q(t), 0) dt.
+```
 
-This work is sufficient for release as a reproducibility and proof-audit
-artifact. It is not sufficient to announce a new mathematical result or a
-solution of the minimum-overlap problem.
+The certificate file is
+[`certificates/center-038055925.tsv`](certificates/center-038055925.tsv), with
+SHA-256:
 
-## Why It Matters
+```text
+b02a45a645337c74215a365e82f403990eeb9413e3f8771e719e5e5397da39e8
+```
 
-Every lower-bound improvement strengthens a universal statement about all
-balanced partitions of consecutive integers. It proves that repeated
-differences cannot be made rarer than the new constant permits.
+Frequencies and multipliers are interpreted as exact rational decimals.
+Each `sinc(xi)^2` right-hand side is the exact transcendental value, enclosed
+independently by directed arithmetic in each verifier.
 
-The problem also connects several areas:
+## Verification
 
-- additive combinatorics through repeated differences and difference sets;
-- harmonic analysis through convolution and Fourier constraints;
-- discrepancy and extremal set theory through unavoidable imbalance;
-- convex and semidefinite optimization through lower-bound relaxations;
-- rigorous numerics through interval-certified dual witnesses.
+### Python-Arb
 
-The exact value would identify the true worst-case overlap behavior and settle
-a classical problem that has resisted both structural and computational
-methods since 1955.
+The Python verifier:
 
-The verification machinery has broader use beyond this constant. The same
-pattern can certify sharp inequalities, audit externally produced numerical
-proofs, and separate exploratory optimization from theorem-grade evidence.
+- parses the canonical certificate without floating-point conversion;
+- computes the analytic bounds with python-flint and Arb;
+- encloses `q`, `q'`, and `q''` on adaptive cells using Taylor's theorem;
+- integrates certified-positive cells with an interval antiderivative;
+- charges unresolved terminal cells by a rigorous upper rectangle.
 
-## What Remains
+At 256-bit precision it reports:
 
-The following gates remain open:
+```text
+D_upper = 2.627711172296609115765958739218722735...
+margin  = 0.000000544078699065548777402393917083...
+```
 
-- independently reimplement and verify the stronger `0.38055470` certificate;
-- produce a project certificate strictly above `0.38055470`;
-- close or materially narrow the gap to the best upper construction;
-- determine whether the current separable-frequency relaxation has reached a
-  structural ceiling;
-- obtain independent mathematical review before any public theorem claim;
-- formalize the finite certificate theorem in a proof assistant if the search
-  produces a durable record.
+### MPFI/C
 
-## Limitations
+The independent C verifier has its own:
 
-- This repository has not proved a project-original lower bound and has not
-  determined the exact value of `c_E`.
-- The `c_E > 0.38055470` prior-art result has been replayed only with its
-  original checker. It has not yet been independently reimplemented here.
-- The current search is limited to particular dual witnesses, frequency
-  families, discretizations, and interval-arithmetic formulations. Failure
-  within those families would not prove that a stronger bound is impossible.
-- Numerical experiments are exploratory until converted into finite
-  certificates accepted by two independent directed-arithmetic verifiers.
-- The novelty audit is dated 2026-09-01 and can become obsolete as new papers,
-  repositories, or unpublished results appear.
-- No project-original theorem or certificate has yet received independent
-  external mathematical review or formal verification.
+- strict LF-ASCII parser;
+- exact decimal-to-rational conversion;
+- MPFI and MPFR interval calculations;
+- adaptive traversal and accounting;
+- endpoint extraction and strict target comparison.
 
-These limits mean that the repository currently supports reproducibility and
-future search, not an announcement that the 1955 problem has been solved.
+At 256-bit precision it reports:
 
-## Claim Scope
+```text
+D_upper = 2.627711172296609115765958701268201763538
+margin  = 0.0000005440786990655487774403444380553601380208
+```
 
-The supported claim is limited to authenticated replay, independent
-verification of the licensed Station certificate, audit of the proof
-reduction, checker-hardening findings, and documented search routes. This
-repository does not claim a project-original lower bound or a solution of the
-problem.
+The two implementations agree beyond the precision needed for the theorem.
+Their shared boundary is limited to the certificate bytes, analytic formulas,
+Taylor enclosure argument, and elementary antiderivative.
 
-Announcing a new mathematical result requires a project-original theorem that
-clears the novelty threshold, passes independent MPFI and Arb verification,
-survives mutation and semantic proof audits, is checked against a refreshed
-literature search, and receives external mathematical review.
+## Reproduce
 
-For a genuine new bound, the preferred public record is a versioned repository
-release plus a dated preprint containing the theorem, proof reduction,
-certificate digest, verification instructions, and comparison with prior art.
+Prerequisites:
 
-## Criteria For A New Result
+- Python 3.12
+- `uv`
+- a C compiler
+- GMP, MPFR, and MPFI development libraries
 
-If a new bound passes every gate, the project will:
-
-1. Freeze the source, certificate, hashes, toolchain, and expected outputs in a
-   signed versioned release.
-2. Archive that release in a durable research repository with a persistent
-   identifier.
-3. Publish a dated preprint explaining the theorem and the independently
-   checkable proof.
-4. Notify the Erdos Problems maintainers, relevant prior authors, and the
-   additive-combinatorics community with the exact claim and verification
-   instructions.
-5. Submit the work for external mathematical review.
-
-A GitHub commit by itself is not treated as adequate publication or
-independent validation.
-
-## Future Directions
-
-The highest-value next experiments are:
-
-1. Enrich the low-mean generator family near `m in [0.0018, 0.0028]`.
-2. Optimize row mixtures continuously instead of using a small set of
-   hand-written combinations.
-3. Make positive-part budget loss part of the optimization objective rather
-   than applying a large hardening correction afterward.
-4. Add frequencies adaptively from reduced-cost or residual information
-   instead of uniformly doubling the frequency grid.
-5. Introduce independently derived coupled-frequency or small
-   positive-semidefinite
-   constraints if the separable relaxation stalls.
-6. Require both MPFI and Arb replay, mutation tests, a refreshed prior-art
-   search, and external review for every promoted candidate.
-
-Detailed numerical evidence and experiment thresholds are in
-[`docs/SEARCH_ROUTES.md`](docs/SEARCH_ROUTES.md).
-
-## Verification Status
-
-| Item | Status |
-| --- | --- |
-| Station artifact authentication | Passed |
-| Station four-row MPFI replay | Passed |
-| Separate Python and Arb Station verifier | Passed |
-| Station framework semantic audit | Passed for the audited reduction and certificate semantics |
-| Stronger prior-art checker replay | Passed, provenance only |
-| New result from this project | None |
-| Supported claim | Reproducibility and proof-audit artifact; no new theorem |
-
-Candidate improvements are not mathematical results until they pass two
-independent directed-arithmetic verifiers, a semantic proof audit, a refreshed
-prior-art search, and external review.
-
-## Commands
+Run:
 
 ```bash
 make sync
@@ -273,19 +189,99 @@ make verify
 make audit
 ```
 
-See `evidence.json`, `evidence/`, and `docs/` for the machine-readable record,
-proof audit, prior-art boundary, and search analysis. `release.yaml` records
-artifact reproducibility and theorem-announcement readiness separately.
+Run the new center checks directly:
+
+```bash
+uv run minoverlap verify-center \
+  certificates/center-038055925.tsv
+
+uv run minoverlap verify-center-mpfi \
+  certificates/center-038055925.tsv
+```
+
+The complete machine-readable record is in:
+
+- [`evidence/center-038055925-verification.json`](evidence/center-038055925-verification.json)
+- [`evidence/noncentral-038055925-replay.json`](evidence/noncentral-038055925-replay.json)
+- [`evidence.json`](evidence.json)
+
+## What We Claim
+
+- The frozen project center certificate rigorously covers both central mean
+  bins.
+- Two independently implemented directed-arithmetic verifiers accept it.
+- Price's other 170 bins were replayed at the same target and all passed.
+- Together these finite certificates establish `c_E > 0.38055925`.
+- The center certificate and verification implementations are
+  project-original work by Ruturaj R Raval.
+
+## What We Do Not Claim
+
+- We do not determine the exact value of `c_E`.
+- We do not claim the retained multipliers are optimal.
+- We do not claim Price's noncentral certificate as project-original work.
+- We do not redistribute Price's unlicensed source or certificate files.
+- We do not treat repeated runs of one implementation as independent
+  verification.
+- Independent external mathematical review is not yet complete.
+
+## Significance
+
+Every lower-bound improvement strengthens a universal theorem over all balanced
+partitions of every sufficiently large interval. It rules out an additional
+range of hypothetical low-overlap constructions.
+
+The method also contributes a reusable computer-assisted proof pattern:
+
+- separate optimization from verification;
+- freeze exact certificate semantics;
+- require independent arithmetic implementations;
+- bind evidence by cryptographic hashes;
+- preserve dependency and licensing boundaries;
+- state numerical and mathematical nonclaims explicitly.
+
+The same architecture applies to extremal combinatorics, Fourier inequalities,
+rigorous optimization, and other finite-certificate proofs.
+
+## Remaining Work
+
+The main mathematical problem remains open. High-value next directions include:
+
+1. Continue reduced-cost column generation and test whether the current
+   Fourier relaxation has a structural ceiling.
+2. Add coupled-frequency or positive-semidefinite constraints.
+3. Narrow the remaining gap to the best upper construction.
+4. Seek independent external reproduction and peer review.
+5. Formalize the finite analytic reduction and certificate semantics in a
+   proof assistant.
+
+## Repository Layout
+
+| Path | Purpose |
+| --- | --- |
+| `certificates/` | Frozen project certificate |
+| `src/minoverlap/center_certificate.py` | Python-Arb center verifier |
+| `verification/center_mpfi.c` | Independent MPFI/C center verifier |
+| `paper/` | Proof manuscript |
+| `evidence/` | Machine-readable verification and provenance records |
+| `docs/` | Prior-art, proof, and search analysis |
+| `upstream/station/` | Licensed Station reproduction baseline |
+| `research/` | Claim and release-gate records |
+
+## Licensing
+
+Project-original software, certificate data, and documentation are released
+under Apache-2.0. The retained Station artifacts preserve their Apache-2.0
+provenance.
+
+Price's noncentral source package is cited and hash-pinned but is not included
+because no license was declared at the audited commit.
 
 ## References
 
-- [P. Erdos, "Some Remarks on Number Theory", 1955](https://www.renyi.hu/~p_erdos/1955-13.pdf).
+- P. Erdos, "Some Remarks on Number Theory", 1955.
 - L. Moser, "On the Minimum Overlap Problem of Erdos", 1959.
-- J. K. Haugland, "Advances in the Minimum Overlap Problem", 1996.
-- [J. K. Haugland, arXiv:1609.08000, 2016](https://arxiv.org/abs/1609.08000).
-- [E. P. White, arXiv:2201.05704, 2022](https://arxiv.org/abs/2201.05704).
-- [S. Kim et al., arXiv:2606.31182, 2026](https://arxiv.org/abs/2606.31182).
-- [Y. Ye et al., arXiv:2604.19341, 2026](https://arxiv.org/abs/2604.19341).
-- [R. Chung et al., arXiv:2608.23691, 2026](https://arxiv.org/abs/2608.23691).
-- [Erdos Problem 36](https://www.erdosproblems.com/36), accessed
-  2026-09-01.
+- E. P. White, arXiv:2201.05704, 2022.
+- R. Chung et al., arXiv:2608.23691, 2026.
+- L. Price, `Leeham06972452/erdos-36-lower-bound`, pinned 2026 commit.
+- H. Deng, DOI `10.5281/zenodo.22279894`, 2026.

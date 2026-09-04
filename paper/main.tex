@@ -1,0 +1,385 @@
+\documentclass[11pt]{article}
+
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage[hidelinks]{hyperref}
+\usepackage{microtype}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{remark}{Remark}
+\newcommand{\dd}{\,\mathrm{d}}
+\newcommand{\one}{\mathbf{1}}
+\DeclareMathOperator{\sinc}{sinc}
+
+\title{A Certified Lower Bound for the Erdos Minimum-Overlap Problem}
+\author{Ruturaj R Raval}
+\date{4 September 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We prove that the Erdos minimum-overlap constant satisfies
+\[
+  c_E>0.38055925.
+\]
+The proof replaces the two central mean bins in a published 172-bin
+certificate by a new even dual certificate. The new certificate uses one
+second-moment row, 107 pointwise Fourier rows, and one truncated Parseval
+row. Its positive-part integral is checked with outward-rounded interval
+arithmetic. The remaining 170 bins use the previously published
+Arb-certified bounds of Price. The retained certificate, strict parser,
+verification implementations, hashes, and machine-readable outputs are
+included with the repository.
+\end{abstract}
+
+\section{Introduction}
+
+Let
+\[
+  \{1,\ldots,2N\}=A\sqcup B,\qquad |A|=|B|=N,
+\]
+and write
+\[
+  R(A,B)=\max_{d\in\mathbb Z}
+  |\{(a,b)\in A\times B:b-a=d\}|.
+\]
+The Erdos minimum-overlap constant is
+\[
+  c_E=\liminf_{N\to\infty}
+  \frac1N\min_{\substack{A\sqcup B=\{1,\ldots,2N\}\\|A|=|B|=N}}
+  R(A,B).
+\]
+Erdos introduced the problem in 1955. Its exact value remains unknown.
+Recent work has substantially narrowed the gap between universal lower
+bounds and explicit constructions.
+
+The present result is a finite, computer-assisted lower-bound proof. It
+builds on the mean-bin framework and noncentral certificates published by
+Price, and on the center-bin Fourier formulation used by Deng. The new
+content is a stronger center certificate and its independent verification
+package. The optimization that found the multipliers is not part of the
+trusted proof.
+
+\section{Continuous formulation}
+
+Let $\mathcal H$ be the set of measurable functions
+$h:[0,2]\to[0,1]$ with $\int_0^2 h=1$, and put $g=1-h$. Extend both functions
+by zero outside $[0,2]$. Define
+\[
+  p_h(t)=\int_{\mathbb R}h(x)g(x+t)\dd x,\qquad -2\le t\le2.
+\]
+Then $p_h\ge0$ and $\int_{-2}^{2}p_h=1$. Set
+\[
+  c_{\mathrm{cont}}=\inf_{h\in\mathcal H}\|p_h\|_\infty.
+\]
+
+\begin{lemma}\label{lem:transfer}
+One has $c_E\ge c_{\mathrm{cont}}$.
+\end{lemma}
+
+\begin{proof}
+For a balanced partition of $\{1,\ldots,2N\}$, replace each integer by its
+interval of length $1/N$ in $[0,2]$. The resulting overlap density is
+\[
+  p(t)=\frac1N\sum_{a\in A,\,b\in B}
+  (1-|Nt-(b-a)|)_+.
+\]
+For fixed $Nt$, at most two adjacent integer differences contribute, and
+their triangular weights sum to at most one. Hence
+$\|p\|_\infty\le R(A,B)/N$. Taking the minimum and then the liminf proves the
+claim.
+\end{proof}
+
+It therefore suffices to lower-bound $\|p_h\|_\infty$ uniformly over
+$h\in\mathcal H$.
+
+\section{Analytic constraints}
+
+Fix $h\in\mathcal H$, write $p=p_h$, and define
+\[
+  \mu=\int_{-2}^{2}t\,p(t)\dd t.
+\]
+The constraints on $h$ imply $\mu\in[-1,1]$.
+
+\subsection{Second moment}
+
+\begin{lemma}\label{lem:second}
+For every admissible $p$,
+\[
+  \int_{-2}^{2}t^2p(t)\dd t=\frac23+\frac{\mu^2}{2}.
+\]
+Consequently, if $|\mu|\le1/320$, then
+\[
+  \int t^2p(t)\dd t\le
+  B_2:=\frac23+\frac{1}{2\cdot320^2}.
+\]
+\end{lemma}
+
+\begin{proof}
+Let $X$ and $Y$ be independent with densities $h$ and $g$. Since $h+g=1$,
+\[
+  \mathbb EX+\mathbb EY=2,\qquad
+  \mathbb EX^2+\mathbb EY^2=\frac83.
+\]
+Also $\mu=\mathbb E(Y-X)$, so
+$\mathbb EX=1-\mu/2$ and $\mathbb EY=1+\mu/2$. Therefore
+\[
+  \mathbb E(Y-X)^2
+  =\frac83-2\mathbb EX\,\mathbb EY
+  =\frac23+\frac{\mu^2}{2}.
+\]
+\end{proof}
+
+\subsection{Fourier rows}
+
+For real $\xi$, define
+\[
+  H(\xi)=\int_0^2h(x)e^{i\xi(x-1)}\dd x,\qquad
+  G(\xi)=\int_0^2g(x)e^{i\xi(x-1)}\dd x,
+\]
+and
+\[
+  C_\xi=\int_{-2}^{2}p(t)\cos(\xi t)\dd t,\qquad
+  \sinc\xi=\begin{cases}\sin\xi/\xi,&\xi\ne0,\\1,&\xi=0.\end{cases}
+\]
+Then $H(\xi)+G(\xi)=2\sinc\xi$ and the Fourier transform of $p$ is
+$\overline{H(\xi)}G(\xi)$.
+
+\begin{lemma}\label{lem:cosine}
+For every real $\xi$,
+\[
+  C_\xi\le\sinc^2\xi.
+\]
+\end{lemma}
+
+\begin{proof}
+Write $H-G=a+ib$ and $\sigma=\sinc\xi$. Since $H+G=2\sigma$,
+\[
+  \overline HG
+  =\sigma^2-\frac{a^2+b^2}{4}-i\sigma b.
+\]
+Taking real parts gives the claim.
+\end{proof}
+
+\begin{lemma}[Parseval row]\label{lem:parseval}
+For every positive integer $M$,
+\[
+  -\sum_{n=1}^{M}C_{n\pi}\le\frac12.
+\]
+\end{lemma}
+
+\begin{proof}
+At $\xi=n\pi$, $n\ne0$, one has $G(\xi)=-H(\xi)$ and therefore
+$C_{n\pi}=-|H(n\pi)|^2$. Parseval on $[-1,1]$ gives
+\[
+  \sum_{n\in\mathbb Z}|H(n\pi)|^2
+  =2\int_0^2h(x)^2\dd x\le2.
+\]
+Since $H(0)=1$ and the positive and negative frequencies have equal squared
+modulus,
+\[
+  \sum_{n=1}^{\infty}|H(n\pi)|^2\le\frac12.
+\]
+Every finite truncation obeys the same upper bound.
+\end{proof}
+
+\section{Positive-part dual bound}
+
+\begin{lemma}\label{lem:dual}
+Suppose $p\ge0$, $\int p=1$, and
+\[
+  \int p(t)\phi_j(t)\dd t\le B_j,\qquad j=1,\ldots,r.
+\]
+For nonnegative multipliers $\lambda_j$, define
+\[
+  q(t)=1+\sum_{j=1}^{r}\lambda_j(B_j-\phi_j(t)).
+\]
+Then
+\[
+  \|p\|_\infty\ge
+  \left(\int_{-2}^{2}\max(q(t),0)\dd t\right)^{-1}.
+\]
+\end{lemma}
+
+\begin{proof}
+The constraints and nonnegative multipliers give $\int pq\ge1$. Since $p\ge0$,
+\[
+  1\le\int pq\le\int p\max(q,0)
+  \le\|p\|_\infty\int\max(q,0).
+\]
+\end{proof}
+
+\section{The center certificate}
+
+For the two bins
+\[
+  I_-=[-1/320,0],\qquad I_+=[0,1/320],
+\]
+the retained certificate defines
+\begin{align*}
+q(t)=1
+&+\lambda_2(B_2-t^2)\\
+&+\sum_{\xi\in\Xi}
+  \lambda_\xi\bigl(\sinc^2\xi-\cos(\xi t)\bigr)\\
+&+\lambda_P\left(\frac12+\sum_{n=1}^{100}\cos(n\pi t)\right).
+\end{align*}
+The exact decimal values of the nonnegative multipliers and the 107
+frequencies in $\Xi$ are stored in
+\texttt{certificates/center-038055925.tsv}. The certificate is even, so the
+same function covers both center bins.
+
+Every decimal frequency and multiplier in the file is interpreted as an
+exact rational number. For a cosine row, however, the right-hand side is the
+exact transcendental value $\sinc^2\xi$, not a decimal approximation. Each
+verifier independently encloses this value with directed arithmetic.
+
+The verifier recomputes every $\sinc^2\xi$ with outward-rounded arithmetic.
+It does not trust the discovery objective, reported roots, or optimizer
+termination status.
+
+\subsection{Rigorous positive-part integration}
+
+On an interval $J=[a,b]$ with center $c$ and radius $r$, the verifier encloses
+$q(c)$, $q'(c)$, and $q''(c)$. It also computes a global directed upper bound
+$M_3$ for $\sup_{[-2,2]}|q'''|$. Taylor's theorem gives
+\[
+  q(x)\in q(c)+[-E_J,E_J],
+\]
+where
+\[
+  E_J=|q'(c)|r+\frac{|q''(c)|r^2}{2}+\frac{M_3r^3}{6}.
+\]
+All quantities in this formula are interval enclosures.
+
+If the resulting upper endpoint is nonpositive, the interval contributes
+zero. If the lower endpoint is nonnegative, the elementary antiderivative of
+$q$ is evaluated with directed arithmetic. Otherwise the interval is
+bisected. An unresolved terminal interval is charged by its width times the
+positive part of the certified upper endpoint. The calculation is performed
+on $[0,2]$ and doubled by evenness.
+
+The retained Python-Arb run at 256-bit precision gives
+\[
+  \int_{-2}^{2}\max(q(t),0)\dd t
+  \le 2.627711172296609116.
+\]
+In particular,
+\[
+  2.627711172296609116
+  <\frac1{0.38055925}
+  =2.627711716375308181\ldots.
+\]
+The exact directed endpoints, cell counts, certificate hash, and command are
+stored in the machine-readable evidence package.
+
+\subsection{Independent MPFI implementation}
+
+A second verifier is implemented in C with MPFI, MPFR, and GMP. It has its own
+strict certificate parser, exact decimal-to-rational conversion, interval
+evaluation, adaptive traversal, antiderivative, accounting, and endpoint
+extraction. At 256-bit precision it gives
+\[
+  \int_{-2}^{2}\max(q(t),0)\dd t
+  \le2.627711172296609115765958701269.
+\]
+This independently establishes the same strict target margin. The two
+implementations share the certificate bytes and mathematical formulas, but
+not parser code, arithmetic backend, traversal code, or result extraction.
+
+\section{Noncentral bins}
+
+Price's published certificate partitions the possible mean into 172 bins.
+The only bins replaced here are 85 and 86, namely $I_-$ and $I_+$. Among the
+remaining 170 bins, the largest published Arb-certified denominator occurs
+at bin 77 and its reflected partner 94:
+\[
+  D_{\mathrm{noncentral}}
+  \le2.627538530873375791.
+\]
+Thus
+\[
+  D_{\mathrm{noncentral}}
+  <\frac1{0.38055925}.
+\]
+The project independently replayed the source checker on all 170 reused bins.
+Because Price's repository had no declared license at the pinned commit, its
+source and certificate are not redistributed here. Only provenance, hashes,
+mathematical facts, and replay outputs are retained.
+
+\section{Global result}
+
+\begin{theorem}\label{thm:main}
+The Erdos minimum-overlap constant satisfies
+\[
+  \boxed{c_E>0.38055925}.
+\]
+\end{theorem}
+
+\begin{proof}
+Let $h\in\mathcal H$ and let $\mu$ be the mean of $p_h$. If
+$|\mu|\le1/320$, Lemmas \ref{lem:second}, \ref{lem:cosine},
+\ref{lem:parseval}, and \ref{lem:dual}, together with the certified center
+denominator, give
+\[
+  \|p_h\|_\infty>0.38055925.
+\]
+Otherwise $\mu$ lies in one of Price's 170 retained noncentral bins, whose
+certified denominator is also strictly below $1/0.38055925$. Hence
+the finite maximum of the certified denominators over all 172 bins is strictly
+below $1/0.38055925$. This gives the uniform bound
+$c_{\mathrm{cont}}>0.38055925$. Lemma \ref{lem:transfer} completes the proof.
+\end{proof}
+
+\section{Verification and scope}
+
+The trusted center proof consists of the canonical certificate, exact decimal
+semantics, the analytic lemmas above, and two directed positive-part
+implementations. The optimization and floating-point root search are outside
+the trusted path.
+
+This theorem improves the lower bound but does not determine $c_E$. A gap
+remains to the best reported upper constructions. The noncentral part depends
+on Price's published certificate, and independent external mathematical
+review remains desirable. The repository distinguishes these limitations from
+the finite center computation and records the dated prior-art search used for
+the novelty comparison.
+
+\begin{thebibliography}{9}
+
+\bibitem{Erdos1955}
+P. Erdos,
+\emph{Some remarks on number theory},
+Riveon Lematematika 9 (1955), 45--48.
+
+\bibitem{Moser1959}
+L. Moser,
+\emph{On the minimum overlap problem of Erdos},
+Acta Arithmetica 5 (1959), 117--119.
+
+\bibitem{White2022}
+E. P. White,
+\emph{A lower bound for the minimum overlap problem},
+arXiv:2201.05704, 2022.
+
+\bibitem{Price2026}
+L. Price,
+\emph{Erdos problem 36 lower-bound certificate},
+GitHub repository, pinned commit
+\texttt{6bc610e40083ef61a40966dfb5d38612cabc4c5b}, 2026.
+
+\bibitem{Chung2026}
+R. Chung et al.,
+\emph{An improved lower bound for the Erdos minimum-overlap problem},
+arXiv:2608.23691, 2026.
+
+\bibitem{Deng2026}
+H. Deng,
+\emph{A certified lower bound for Erdos problem 36},
+Zenodo, doi:10.5281/zenodo.22279894, 2026.
+
+\end{thebibliography}
+
+\end{document}

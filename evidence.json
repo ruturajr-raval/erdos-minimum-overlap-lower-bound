@@ -1,8 +1,8 @@
 {
-  "schema": "minimum-overlap-evidence-v2",
+  "schema": "minimum-overlap-evidence-v3",
   "campaign_id": "MOP-001",
-  "status": "active_reproducibility",
-  "generated_at": "2026-09-01",
+  "status": "certified_project_lower_bound",
+  "generated_at": "2026-09-04",
   "environment": {
     "os": "macOS 26.6.2 (25G83)",
     "architecture": "arm64",
@@ -39,6 +39,17 @@
         "proof_note_tex": "28b29a454b9498f93c944be9eae3eed0ebffc78cc3c592ebd974042413d209d9"
       }
     },
+    "september_2026_prior_art": {
+      "repository": "emerardd/erdos-36-lower-bound-0380557",
+      "commit": "0913ca8ebab68927e5f16026ea7c45070634d737",
+      "release": "v1.0.1",
+      "version_doi": "10.5281/zenodo.22279895",
+      "concept_doi": "10.5281/zenodo.22279894",
+      "stated_claim": "c_E > 0.380557",
+      "best_recorded_center_denominator_upper": "2.6277191078658615742268756",
+      "declared_license": "MIT for original material; vendored Price material excluded",
+      "vendored": false
+    },
     "formal_conjectures": {
       "tag": "v4.33.1",
       "commit": "fd5c0ab5d1a77c2dfc6bd1102e40a350e6a02965",
@@ -51,6 +62,20 @@
       "backend": "python-flint 0.9.0 / Arb",
       "license": "Apache-2.0",
       "implementation_boundary": "Independent parser, arithmetic backend, traversal, accounting, and endpoint extraction; shared Station certificate formulas and Taylor argument."
+    },
+    "project_center_arb_verifier": {
+      "implementation_sha256": "4c11223d3b5d65d47df9dca385574ccd21537f804540208942facb1ec8102065",
+      "test_sha256": "29579e8fe080716a79af6a37fb280a4b9f45b4364c742e926d5dfe89a03c767c",
+      "backend": "python-flint 0.9.0 / Arb",
+      "license": "Apache-2.0",
+      "evidence": "evidence/center-038055925-verification.json"
+    },
+    "project_center_mpfi_verifier": {
+      "implementation_sha256": "2b662976d5b5adec5db6580958f6344ad3a059d2cb12243630b9cb7040911379",
+      "test_sha256": "76ae50357d0d176a5c2ee2c36bb79d8f3194ddbc259c9fc2d065e323a32b42b2",
+      "backend": "MPFI 1.5.4 / MPFR 4.2.2 / GMP 6.3.0",
+      "license": "Apache-2.0",
+      "evidence": "evidence/center-038055925-verification.json"
     }
   },
   "reproduced_claims": [
@@ -70,7 +95,35 @@
       "status": "original_checker_replayed_all_172_bins",
       "novelty_owner": "prior art; not this project",
       "evidence": "evidence/prior-art-replay.json"
+    },
+    {
+      "id": "september-2026-prior-art",
+      "claim": "c_E > 0.380557",
+      "status": "independently_replayed_for_novelty_comparison",
+      "novelty_owner": "prior art; not this project",
+      "evidence": "docs/PRIOR_ART.md"
     }
   ],
-  "project_novel_claims": []
+  "project_novel_claims": [
+    {
+      "id": "project-lower-bound-038055925",
+      "claim": "c_E > 0.38055925",
+      "project_original_component": "the even replacement certificate for mean bins 85 and 86",
+      "cited_component": "Price's published Arb-certified bounds for the other 170 mean bins",
+      "certificate": "certificates/center-038055925.tsv",
+      "certificate_sha256": "b02a45a645337c74215a365e82f403990eeb9413e3f8771e719e5e5397da39e8",
+      "verification_status": "accepted by independent Python-Arb and MPFI/C implementations",
+      "evidence": [
+        "evidence/center-038055925-verification.json",
+        "evidence/noncentral-038055925-replay.json"
+      ],
+      "manuscript": "paper/main.tex",
+      "limitations": [
+        "The exact value of c_E remains open.",
+        "The noncentral portion cites Price's published certificate.",
+        "Independent external mathematical review is not yet complete.",
+        "No optimality claim is made for the retained multipliers."
+      ]
+    }
+  ]
 }

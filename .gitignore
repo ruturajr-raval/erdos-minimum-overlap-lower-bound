@@ -7,7 +7,8 @@ build/
 dist/
 generated/
 results/
+/.research-artifacts/
+verification/.center_mpfi-*
 __pycache__/
 *.egg-info/
 *.pyc
-
