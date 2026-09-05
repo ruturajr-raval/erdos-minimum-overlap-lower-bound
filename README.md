@@ -12,8 +12,8 @@ for the Erdos minimum-overlap problem.
 
 The project-original contribution is an even replacement certificate for the
 two central mean bins. The other 170 mean bins use Liam Price's previously
-published Arb-certified bounds. The new center certificate is accepted by two
-separate directed-arithmetic implementations:
+publicly released Arb-certified bounds. The new center certificate is
+accepted by two separate directed-arithmetic implementations:
 
 - Python with python-flint and Arb
 - C with MPFI, MPFR, and GMP
@@ -60,7 +60,7 @@ The proof separates the mean of the continuous overlap density into 172 bins.
 | Mean region | Certificate used | Verified denominator upper |
 | --- | --- | ---: |
 | Central bins 85 and 86, `|mu| <= 1/320` | Project-original certificate | `2.627711172296609116` |
-| Other 170 bins | Price's published certificate | `2.627538530873375791` |
+| Other 170 bins | Price's publicly released certificate | `2.627538530873375791` |
 | Required threshold | `1 / 0.38055925` | `2.627711716375308181...` |
 
 Both denominator bounds are strictly below the threshold. The finite maximum
@@ -80,7 +80,7 @@ Selected lower-bound developments are:
 | 1959 | Moser proved the classical lower bound `0.35639395869...` | Published |
 | 2022 | White raised the lower bound to `0.379005` | Preprint |
 | 2026 | Chung et al. released a certificate for `c_E > 0.380552` | Preprint and Apache-2.0 artifacts |
-| 2026-07 | Price published a repository certificate for `c_E > 0.38055470` | Public computational result |
+| 2026-07 | Price publicly released a repository certificate for `c_E > 0.38055470` | Public computational result |
 | 2026-09-03 | Deng published a certified result `c_E > 0.380557` | Repository, preprint, and Zenodo archive |
 | 2026-09-04 | This project certifies `c_E > 0.38055925` | This repository |
 

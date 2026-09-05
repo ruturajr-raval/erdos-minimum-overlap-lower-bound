@@ -14,7 +14,7 @@ ORCID: 0000-0003-4930-8981
 
 ## Abstract
 
-We prove the computer-assisted lower bound `c_E > 0.38055925` for the Erdos
+We prove the computer-assisted lower bound \(c_E > 0.38055925\) for the Erdos
 minimum-overlap constant. Price's publicly released 172-bin Arb certificate
 is retained on 170 noncentral mean bins, while its two central bins are
 replaced by a new even dual certificate using one second-moment inequality,

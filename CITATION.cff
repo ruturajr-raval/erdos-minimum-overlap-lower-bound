@@ -11,7 +11,17 @@ authors:
 repository-code: "https://github.com/ruturajr-raval/erdos-minimum-overlap-lower-bound"
 identifiers:
   - type: doi
-    value: "10.5281/zenodo.22260847"
+    value: "10.5281/zenodo.22313820"
 license: Apache-2.0
 version: 0.3.0
 date-released: 2026-09-05
+preferred-citation:
+  type: article
+  title: "The Erdos Minimum-Overlap Constant Exceeds 0.38055925"
+  authors:
+    - family-names: Raval
+      given-names: Ruturaj R
+      affiliation: Independent Researcher
+      orcid: "https://orcid.org/0000-0003-4930-8981"
+  doi: "10.5281/zenodo.22313820"
+  year: 2026

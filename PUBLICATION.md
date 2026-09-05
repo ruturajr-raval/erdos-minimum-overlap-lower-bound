@@ -11,8 +11,8 @@ c_E > 0.38055925
 for the Erdos minimum-overlap constant.
 
 The project-original contribution is a replacement certificate for the two
-central mean bins. The proof cites Price's published Arb-certified bounds for
-the other 170 bins.
+central mean bins. The proof cites Price's publicly released Arb-certified
+bounds for the other 170 bins.
 
 ## Verification
 
@@ -74,8 +74,14 @@ This release claims a new certified lower bound. It does not claim:
 
 ## Citation And Archive
 
-Citation metadata is in `CITATION.cff`. Zenodo integration uses the stable
-concept DOI:
+Citation metadata is in `CITATION.cff`. The exact v0.3.0 release is archived
+at version DOI:
+
+```text
+10.5281/zenodo.22313820
+```
+
+All repository versions are collected under the stable concept DOI:
 
 ```text
 10.5281/zenodo.22260847
@@ -83,5 +89,4 @@ concept DOI:
 
 The certified v0.2.0 artifact release is archived at version DOI
 `10.5281/zenodo.22308924`. The manuscript cites that immutable proof-artifact
-snapshot, while the stable concept DOI resolves to the latest repository
-release.
+snapshot.
