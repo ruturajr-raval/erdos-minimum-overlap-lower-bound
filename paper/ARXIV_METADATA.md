@@ -25,7 +25,7 @@ through python-flint and one using MPFI, MPFR, and GMP. A fresh run of Price's
 original Arb checker verifies every retained noncentral bin at the same
 target. The optimization used to discover the multipliers is outside the
 trusted proof. Exact certificate data, verification code, hashes, and run
-records are archived with the paper. The exact value of `c_E` remains open.
+records are archived with the paper. The exact value of \(c_E\) remains open.
 
 ## Classification
 
