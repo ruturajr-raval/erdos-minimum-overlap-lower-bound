@@ -5,8 +5,9 @@ for the Erdos minimum-overlap constant.
 
 The current research branch contains a certified project-original center
 certificate. Combined with Price's published noncentral bins, it establishes
-`c_E > 0.38055925`. Promotion still requires a clean-checkout replay and final
-release review.
+`c_E > 0.38055925`. The artifact release and clean-checkout replay are
+complete. The current work packages the result as a self-contained preprint
+with an explicit dependency boundary.
 
 ## Active Target
 

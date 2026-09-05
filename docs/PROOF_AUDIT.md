@@ -117,8 +117,11 @@ Price's partition has 172 mean bins.
 - Every reused bin passed.
 - The largest reused denominator is
   `2.627538530873375790...`.
-- One tiny source endpoint gap was enlarged conservatively before
-  verification.
+- The source gap from `0.025` to `0.025000000000000133` was covered by
+  widening bin 94 to begin at `0.025`.
+- Every mean-dependent right-hand side was recomputed after that widening.
+- The complete project-generated 170-bin CSV, JSON, and log are retained and
+  authenticated by the release audit.
 
 The uniform denominator maximum over all 172 bins is therefore the project
 center denominator, and it remains strictly below the target denominator.
@@ -152,7 +155,7 @@ hash, and released-certificate tests.
 ## Remaining Audit Boundary
 
 - The exact value of `c_E` remains unknown.
-- The noncentral result cites Price's published certificate.
+- The noncentral result cites Price's publicly released certificate.
 - The optimization is not trusted and is not claimed optimal.
 - Independent external mathematical review is pending.
 - A proof-assistant formalization of the new finite certificate is not yet

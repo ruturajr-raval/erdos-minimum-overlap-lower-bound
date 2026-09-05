@@ -1,4 +1,4 @@
-# Release v0.2.0
+# Preprint Release v0.3.0
 
 ## Main Result
 
@@ -34,8 +34,13 @@ All 170 reused Price bins were rerun at target `0.38055925` and passed.
 - `src/minoverlap/center_certificate.py`
 - `verification/center_mpfi.c`
 - `paper/main.tex`
+- `paper/ARXIV_METADATA.md`
+- `tools/build_arxiv_bundle.py`
 - `evidence/center-038055925-verification.json`
 - `evidence/noncentral-038055925-replay.json`
+- `evidence/noncentral-038055925-report.csv`
+- `evidence/noncentral-038055925-report.json`
+- `evidence/noncentral-038055925-report.log`
 
 The center certificate SHA-256 is:
 
@@ -53,6 +58,8 @@ make typecheck
 make build
 make verify
 make audit
+make paper-build
+make paper-bundle
 ```
 
 ## Claim Boundary
@@ -74,4 +81,7 @@ concept DOI:
 10.5281/zenodo.22260847
 ```
 
-Zenodo assigns the version DOI when the GitHub release is archived.
+The certified v0.2.0 artifact release is archived at version DOI
+`10.5281/zenodo.22308924`. The manuscript cites that immutable proof-artifact
+snapshot, while the stable concept DOI resolves to the latest repository
+release.

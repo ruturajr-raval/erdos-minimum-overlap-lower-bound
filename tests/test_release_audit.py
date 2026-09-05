@@ -16,6 +16,9 @@ def copy_release_subset(destination: Path) -> Path:
         "certificates/center-038055925.tsv",
         "evidence/center-038055925-verification.json",
         "evidence/noncentral-038055925-replay.json",
+        "evidence/noncentral-038055925-report.csv",
+        "evidence/noncentral-038055925-report.json",
+        "evidence/noncentral-038055925-report.log",
         "evidence.json",
         "src/minoverlap/center_certificate.py",
         "verification/center_mpfi.c",
@@ -34,6 +37,7 @@ def test_project_release_audit_authenticates_complete_evidence() -> None:
     assert result["status"] == "pass"
     assert result["target"] == "0.38055925"
     assert result["mean_bins_covered"] == 172
+    assert result["noncentral_bins"] == 170
 
 
 def test_project_release_audit_rejects_certificate_mutation(tmp_path: Path) -> None:
@@ -53,4 +57,15 @@ def test_project_release_audit_rejects_coverage_mutation(tmp_path: Path) -> None
     path.write_text(json.dumps(evidence))
 
     with pytest.raises(ValueError, match="170 bins"):
+        audit_project_release(root)
+
+
+def test_project_release_audit_rejects_noncentral_report_mutation(
+    tmp_path: Path,
+) -> None:
+    root = copy_release_subset(tmp_path)
+    path = root / "evidence/noncentral-038055925-report.csv"
+    path.write_bytes(path.read_bytes().replace(b",True,", b",False,", 1))
+
+    with pytest.raises(ValueError, match="hash mismatch"):
         audit_project_release(root)

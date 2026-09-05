@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import csv
 import json
 from pathlib import Path
 from typing import Any
@@ -13,7 +14,11 @@ _TARGET = "0.38055925"
 _CERTIFICATE = Path("certificates/center-038055925.tsv")
 _CENTER_EVIDENCE = Path("evidence/center-038055925-verification.json")
 _NONCENTRAL_EVIDENCE = Path("evidence/noncentral-038055925-replay.json")
+_NONCENTRAL_REPORT_CSV = Path("evidence/noncentral-038055925-report.csv")
+_NONCENTRAL_REPORT_JSON = Path("evidence/noncentral-038055925-report.json")
+_NONCENTRAL_REPORT_LOG = Path("evidence/noncentral-038055925-report.log")
 _MAIN_EVIDENCE = Path("evidence.json")
+_EXPECTED_NONCENTRAL_BINS = tuple(range(85)) + tuple(range(87, 172))
 
 
 def _load_json(path: Path) -> dict[str, Any]:
@@ -42,6 +47,78 @@ def _check_hash(root: Path, relative: object, expected: object, field: str) -> s
     if observed != expected:
         raise ValueError(f"release artifact hash mismatch for {relative}: {observed}")
     return observed
+
+
+def _authenticate_noncentral_outputs(
+    root: Path,
+    noncentral: dict[str, Any],
+) -> dict[str, str]:
+    outputs = _mapping(noncentral.get("retained_outputs"), "retained_outputs")
+    expected_paths = {
+        "csv": _NONCENTRAL_REPORT_CSV,
+        "json": _NONCENTRAL_REPORT_JSON,
+        "log": _NONCENTRAL_REPORT_LOG,
+    }
+    hashes: dict[str, str] = {}
+    for name, expected_path in expected_paths.items():
+        record = _mapping(outputs.get(name), f"retained_outputs.{name}")
+        if record.get("path") != str(expected_path):
+            raise ValueError(f"unexpected retained noncentral {name} path")
+        hashes[name] = _check_hash(
+            root,
+            record.get("path"),
+            record.get("sha256"),
+            f"retained noncentral {name}",
+        )
+
+    report = _load_json(root / _NONCENTRAL_REPORT_JSON)
+    result = _mapping(noncentral.get("result"), "noncentral result")
+    settings = _mapping(noncentral.get("settings"), "noncentral settings")
+    if (
+        report.get("target") != _TARGET
+        or report.get("checked_bins") != list(_EXPECTED_NONCENTRAL_BINS)
+        or report.get("proved_all_checked_bins") is not True
+        or report.get("failures") != []
+        or report.get("worst_bin_index") != result.get("worst_bin_index")
+        or report.get("arb_precision_bits") != settings.get("arb_precision_bits")
+        or report.get("rhs_inflate") != settings.get("rhs_inflate")
+    ):
+        raise ValueError("retained noncentral JSON report is inconsistent")
+    worst_upper = result.get("worst_denominator_upper")
+    worst_ball = report.get("worst_D_upper_ball")
+    if not isinstance(worst_upper, str) or not isinstance(worst_ball, str):
+        raise ValueError("retained noncentral worst denominator is malformed")
+    if not worst_ball.startswith(f"[{worst_upper}"):
+        raise ValueError("retained noncentral worst denominator does not match evidence")
+
+    try:
+        with (root / _NONCENTRAL_REPORT_CSV).open(
+            encoding="utf-8",
+            newline="",
+        ) as stream:
+            rows = list(csv.DictReader(stream))
+    except (OSError, UnicodeError, csv.Error) as error:
+        raise ValueError("cannot read retained noncentral CSV report") from error
+    try:
+        indices = tuple(int(row["bin_index"]) for row in rows)
+    except (KeyError, TypeError, ValueError) as error:
+        raise ValueError("retained noncentral CSV has malformed bin indices") from error
+    if indices != _EXPECTED_NONCENTRAL_BINS:
+        raise ValueError("retained noncentral CSV does not contain the exact bin set")
+    if any(row.get("proved") != "True" for row in rows):
+        raise ValueError("retained noncentral CSV contains an unproved bin")
+    by_index = {int(row["bin_index"]): row for row in rows}
+    if (
+        by_index[94].get("lo") != "0.025"
+        or by_index[94].get("hi") != "0.03750000000000009"
+    ):
+        raise ValueError("retained noncentral CSV does not record the repaired bin 94")
+    stable_worst_prefix = worst_upper[:32]
+    if not by_index[77].get("D_upper_ball", "").startswith(
+        f"[{stable_worst_prefix}"
+    ):
+        raise ValueError("retained noncentral CSV does not match the worst denominator")
+    return hashes
 
 
 def audit_project_release(root: Path | None = None) -> dict[str, object]:
@@ -95,6 +172,7 @@ def audit_project_release(root: Path | None = None) -> dict[str, object]:
         or coverage.get("all_checked_bins_passed") is not True
     ):
         raise ValueError("noncentral evidence does not cover the required 170 bins")
+    noncentral_hashes = _authenticate_noncentral_outputs(root, noncentral)
 
     claims = main.get("project_novel_claims")
     if not isinstance(claims, list) or len(claims) != 1:
@@ -115,5 +193,6 @@ def audit_project_release(root: Path | None = None) -> dict[str, object]:
         "mpfi_c_sha256": c_hash,
         "center_verifiers": 2,
         "noncentral_bins": 170,
+        "noncentral_report_sha256": noncentral_hashes,
         "mean_bins_covered": 172,
     }

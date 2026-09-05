@@ -203,6 +203,9 @@ The complete machine-readable record is in:
 
 - [`evidence/center-038055925-verification.json`](evidence/center-038055925-verification.json)
 - [`evidence/noncentral-038055925-replay.json`](evidence/noncentral-038055925-replay.json)
+- [`evidence/noncentral-038055925-report.csv`](evidence/noncentral-038055925-report.csv)
+- [`evidence/noncentral-038055925-report.json`](evidence/noncentral-038055925-report.json)
+- [`evidence/noncentral-038055925-report.log`](evidence/noncentral-038055925-report.log)
 - [`evidence.json`](evidence.json)
 
 ## What We Claim

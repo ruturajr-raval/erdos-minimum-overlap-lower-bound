@@ -1,5 +1,5 @@
 .PHONY: sync test lint typecheck build verify verify-reference verify-independent \
-	verify-center-arb verify-center-mpfi audit
+	verify-center-arb verify-center-mpfi audit paper-build paper-bundle
 
 sync:
 	uv sync --all-groups
@@ -32,3 +32,11 @@ verify-center-mpfi:
 
 audit:
 	uv run minoverlap audit
+
+paper-build:
+	mkdir -p build/paper
+	latexmk -pdf -interaction=nonstopmode -halt-on-error -file-line-error \
+		-output-directory=build/paper paper/main.tex
+
+paper-bundle:
+	python3 tools/build_arxiv_bundle.py

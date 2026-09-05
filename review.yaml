@@ -1,6 +1,6 @@
 schema: minimum-overlap-review-v2
 campaign_id: MOP-001
-status: internal_certification_complete
+status: project_certification_complete
 reviewed_at: 2026-09-04
 checks:
   - role: mathematical-semantics-audit

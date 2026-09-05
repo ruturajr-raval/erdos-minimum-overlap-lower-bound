@@ -24,3 +24,13 @@ jobs:
       - run: make typecheck
       - run: make build
       - run: make audit
+
+  paper:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - run: sudo apt-get update
+      - run: sudo apt-get install -y latexmk texlive-latex-extra
+      - run: make paper-build
+      - run: make paper-bundle
+      - run: tar -tzf dist/arxiv/erdos-minimum-overlap-038055925.tar.gz

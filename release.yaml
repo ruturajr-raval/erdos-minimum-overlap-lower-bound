@@ -1,13 +1,14 @@
 schema: minimum-overlap-release-v1
 campaign_id: MOP-001
-version: 0.2.0
-release_date: 2026-09-04
+version: 0.3.0
+release_date: 2026-09-05
 artifact_role: certified lower-bound theorem, certificate, and verification toolkit
 supported_claim: a project-original center certificate combined with Price's published noncentral certificates establishes c_E > 0.38055925
 claim_status: certified_project_result_with_cited_noncentral_dependency
 new_result_status: established
 artifact_reproducibility_ready: true
 preprint_release_ready: true
+arxiv_source_bundle_ready: true
 external_review_complete: false
 artifact_checks:
   baseline_reproduced: true

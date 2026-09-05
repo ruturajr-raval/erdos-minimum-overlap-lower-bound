@@ -8,31 +8,35 @@
 
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
 \newtheorem{remark}{Remark}
 \newcommand{\dd}{\,\mathrm{d}}
 \newcommand{\one}{\mathbf{1}}
 \DeclareMathOperator{\sinc}{sinc}
 
-\title{A Certified Lower Bound for the Erdos Minimum-Overlap Problem}
-\author{Ruturaj R Raval}
+\title{The Erd\H{o}s Minimum-Overlap Constant Exceeds 0.38055925}
+\author{Ruturaj R Raval\\
+\small Independent Researcher\\
+\small ORCID: \href{https://orcid.org/0000-0003-4930-8981}
+{0000-0003-4930-8981}}
 \date{4 September 2026}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-We prove that the Erdos minimum-overlap constant satisfies
-\[
-  c_E>0.38055925.
-\]
-The proof replaces the two central mean bins in a published 172-bin
-certificate by a new even dual certificate. The new certificate uses one
-second-moment row, 107 pointwise Fourier rows, and one truncated Parseval
-row. Its positive-part integral is checked with outward-rounded interval
-arithmetic. The remaining 170 bins use the previously published
-Arb-certified bounds of Price. The retained certificate, strict parser,
-verification implementations, hashes, and machine-readable outputs are
-included with the repository.
+We prove the computer-assisted lower bound \(c_E>0.38055925\) for
+Erd\H{o}s' minimum-overlap constant. Price's publicly released 172-bin Arb
+certificate is retained on 170 noncentral mean bins, while its two central
+bins are replaced by a new even dual certificate using one second-moment
+inequality, 107 pointwise Fourier inequalities, and a Parseval inequality
+truncated at order 100. The positive-part integral of the new certificate is
+bounded by two independently implemented directed-arithmetic checkers, one
+using Arb through python-flint and one using MPFI, MPFR, and GMP. A fresh run
+of Price's original Arb checker verifies every retained noncentral bin at the
+same target. The optimization used to discover the multipliers is outside the
+trusted proof. Exact certificate data, verification code, hashes, and run
+records are archived with the paper. The exact value of \(c_E\) remains open.
 \end{abstract}
 
 \section{Introduction}
@@ -46,22 +50,25 @@ and write
   R(A,B)=\max_{d\in\mathbb Z}
   |\{(a,b)\in A\times B:b-a=d\}|.
 \]
-The Erdos minimum-overlap constant is
+The Erd\H{o}s minimum-overlap constant is
 \[
   c_E=\liminf_{N\to\infty}
   \frac1N\min_{\substack{A\sqcup B=\{1,\ldots,2N\}\\|A|=|B|=N}}
   R(A,B).
 \]
-Erdos introduced the problem in 1955. Its exact value remains unknown.
-Recent work has substantially narrowed the gap between universal lower
-bounds and explicit constructions.
+Erd\H{o}s introduced the problem in 1955 \cite{Erdos1955}. Moser obtained the
+classical lower bound \cite{Moser1959}, and White later introduced a stronger
+Fourier-analytic relaxation \cite{White2023}. Recent computer-assisted work
+has strengthened the lower bound through finite dual certificates
+\cite{Chung2026,Price2026,Deng2026}. The exact value remains unknown.
 
 The present result is a finite, computer-assisted lower-bound proof. It
-builds on the mean-bin framework and noncentral certificates published by
-Price, and on the center-bin Fourier formulation used by Deng. The new
-content is a stronger center certificate and its independent verification
-package. The optimization that found the multipliers is not part of the
-trusted proof.
+builds on Price's mean-bin framework and noncentral certificates
+\cite{Price2026}, and on the center-bin Fourier formulation used by Deng
+\cite{Deng2026}. The project-original content is a stronger center
+certificate, two independently implemented directed-arithmetic checkers for
+that certificate, and the combined global audit. The optimization that found
+the multipliers is not part of the trusted proof.
 
 \section{Continuous formulation}
 
@@ -102,7 +109,34 @@ Fix $h\in\mathcal H$, write $p=p_h$, and define
 \[
   \mu=\int_{-2}^{2}t\,p(t)\dd t.
 \]
-The constraints on $h$ imply $\mu\in[-1,1]$.
+
+\begin{lemma}\label{lem:meanrange}
+Every admissible overlap density satisfies \(\mu\in[-1,1]\).
+\end{lemma}
+
+\begin{proof}
+Let
+\[
+  m_h=\int_0^2 xh(x)\dd x,\qquad
+  m_g=\int_0^2 xg(x)\dd x.
+\]
+Since \(h+g=1\), one has \(m_h+m_g=2\). Also
+\[
+  \int_0^1(1-h)=\int_1^2h=:\delta.
+\]
+Using \(x\le1\) on \([0,1]\) and \(x\ge1\) on \([1,2]\),
+\[
+  m_h-\frac12
+  =\int_0^1x(h-1)\dd x+\int_1^2xh\dd x
+  \ge-\delta+\delta=0.
+\]
+Applying the same argument to \(g\) gives \(m_g\ge1/2\), hence
+\(m_h\le3/2\). Finally, the change of variables \(y=x+t\) gives
+\[
+  \mu=m_g-m_h=2-2m_h,
+\]
+which lies in \([-1,1]\).
+\end{proof}
 
 \subsection{Second moment}
 
@@ -236,15 +270,28 @@ exact rational number. For a cosine row, however, the right-hand side is the
 exact transcendental value $\sinc^2\xi$, not a decimal approximation. Each
 verifier independently encloses this value with directed arithmetic.
 
-The verifier recomputes every $\sinc^2\xi$ with outward-rounded arithmetic.
-It does not trust the discovery objective, reported roots, or optimizer
-termination status.
+Both parsers require the declared target, mean interval, row counts, and
+Parseval order; reject malformed or duplicate rows; and verify that every
+multiplier is nonnegative. Each checker recomputes every $\sinc^2\xi$ with
+outward-rounded arithmetic. Neither checker trusts the discovery objective,
+reported roots, or optimizer termination status.
 
 \subsection{Rigorous positive-part integration}
 
 On an interval $J=[a,b]$ with center $c$ and radius $r$, the verifier encloses
 $q(c)$, $q'(c)$, and $q''(c)$. It also computes a global directed upper bound
-$M_3$ for $\sup_{[-2,2]}|q'''|$. Taylor's theorem gives
+$M_3$ for $\sup_{[-2,2]}|q'''|$. More precisely, it evaluates the sum
+\[
+  S_3=
+  \sum_{\xi\in\Xi}\lambda_\xi\xi^3
+  +\lambda_P\sum_{n=1}^{100}(n\pi)^3
+\]
+with directed arithmetic and takes \(M_3\) to be its outward-rounded upper
+endpoint. The triangle inequality therefore gives
+\[
+  \sup_{t\in[-2,2]}|q'''(t)|\le S_3\le M_3.
+\]
+Taylor's theorem gives
 \[
   q(x)\in q(c)+[-E_J,E_J],
 \]
@@ -252,7 +299,17 @@ where
 \[
   E_J=|q'(c)|r+\frac{|q''(c)|r^2}{2}+\frac{M_3r^3}{6}.
 \]
-All quantities in this formula are interval enclosures.
+All quantities in this formula are interval enclosures. On a
+certified-positive interval, the checker evaluates the antiderivative
+\begin{align*}
+Q(t)=t
+&+\lambda_2\left(B_2t-\frac{t^3}{3}\right)\\
+&+\sum_{\xi\in\Xi}\lambda_\xi
+  \left(\sinc^2\xi\,t-\frac{\sin(\xi t)}{\xi}\right)\\
+&+\lambda_P\left(\frac t2+
+  \sum_{n=1}^{100}\frac{\sin(n\pi t)}{n\pi}\right)
+\end{align*}
+with outward rounding.
 
 If the resulting upper endpoint is nonpositive, the interval contributes
 zero. If the lower endpoint is nonnegative, the elementary antiderivative of
@@ -261,19 +318,29 @@ bisected. An unresolved terminal interval is charged by its width times the
 positive part of the certified upper endpoint. The calculation is performed
 on $[0,2]$ and doubled by evenness.
 
-The retained Python-Arb run at 256-bit precision gives
+\begin{proposition}\label{prop:center}
+The canonical certificate satisfies
 \[
   \int_{-2}^{2}\max(q(t),0)\dd t
-  \le 2.627711172296609116.
+  \le 2.627711172296609115765958739219.
 \]
+\end{proposition}
+
+\begin{proof}
+The Python-Arb checker, at 256-bit precision with 4096 initial cells and
+maximum bisection depth 16, returns the displayed outward-rounded upper
+endpoint. It classifies 4805 cells as negative and 5903 as positive, and
+charges 120 terminal cells by upper rectangles. The complete command,
+certificate hash, directed endpoints, and cell counts are retained in the
+machine-readable evidence record.
+\end{proof}
+
 In particular,
 \[
-  2.627711172296609116
+  2.627711172296609115765958739219
   <\frac1{0.38055925}
   =2.627711716375308181\ldots.
 \]
-The exact directed endpoints, cell counts, certificate hash, and command are
-stored in the machine-readable evidence package.
 
 \subsection{Independent MPFI implementation}
 
@@ -288,31 +355,58 @@ extraction. At 256-bit precision it gives
 This independently establishes the same strict target margin. The two
 implementations share the certificate bytes and mathematical formulas, but
 not parser code, arithmetic backend, traversal code, or result extraction.
+This is implementation independence within the project, not an external
+third-party review.
 
 \section{Noncentral bins}
 
-Price's published certificate partitions the possible mean into 172 bins.
-The only bins replaced here are 85 and 86, namely $I_-$ and $I_+$. Among the
-remaining 170 bins, the largest published Arb-certified denominator occurs
-at bin 77 and its reflected partner 94:
+Price's public certificate partitions the full mean interval \([-1,1]\) into
+172 bins \cite{Price2026}. The only bins replaced here are 85 and 86, namely
+\(I_-\) and \(I_+\). The retained source state is commit
+\texttt{6bc610e40083ef61a40966dfb5d38612cabc4c5b}. The retained SHA-256 identities
+are:
+\begin{center}
+\begin{minipage}{0.94\linewidth}
+\small
+certificate:\quad
+\texttt{a2c723d375073bd124c04a690200ca9bf8f598eac506656e1ac9a883e6f4f217}
+
+\smallskip
+checker:\quad
+\texttt{a825b28f0dd8b8db3d8f225bcd8af48374c013f2f59de97bdb3d8d8cd62a49f11e}
+\end{minipage}
+\end{center}
+
+The project reran Price's original Arb checker at target \(0.38055925\) on
+bins \(0\) through \(84\) and \(87\) through \(171\). All 170 checks passed.
+The source decimals left a gap from \(0.025\) to
+\(0.025000000000000133\). Before verification, bin 94 was widened outward by
+replacing its lower endpoint with \(0.025\). The checker then recomputed every
+mean-dependent right-hand side from the widened endpoints, so the repair
+enlarges the certified domain and omits no mean value. The largest certified
+denominator occurs at bin 77 and its reflected partner 94:
 \[
   D_{\mathrm{noncentral}}
-  \le2.627538530873375791.
+  \le2.627538530873375790019512034721.
 \]
 Thus
 \[
   D_{\mathrm{noncentral}}
   <\frac1{0.38055925}.
 \]
-The project independently replayed the source checker on all 170 reused bins.
 Because Price's repository had no declared license at the pinned commit, its
 source and certificate are not redistributed here. Only provenance, hashes,
-mathematical facts, and replay outputs are retained.
+the exact invocation, mathematical facts, and the aggregate replay record are
+retained. This rerun authenticates the cited dependency but is not a
+clean-room implementation of Price's noncentral checker. The configuration
+audit verifies the settings used here, including positive right-hand-side
+inflation \(10^{-14}\) and 160-bit Arb arithmetic; it does not certify every
+parameter combination accepted by the general-purpose source program.
 
 \section{Global result}
 
 \begin{theorem}\label{thm:main}
-The Erdos minimum-overlap constant satisfies
+The Erd\H{o}s minimum-overlap constant satisfies
 \[
   \boxed{c_E>0.38055925}.
 \]
@@ -321,8 +415,8 @@ The Erdos minimum-overlap constant satisfies
 \begin{proof}
 Let $h\in\mathcal H$ and let $\mu$ be the mean of $p_h$. If
 $|\mu|\le1/320$, Lemmas \ref{lem:second}, \ref{lem:cosine},
-\ref{lem:parseval}, and \ref{lem:dual}, together with the certified center
-denominator, give
+\ref{lem:parseval}, and \ref{lem:dual}, together with
+Proposition \ref{prop:center}, give
 \[
   \|p_h\|_\infty>0.38055925.
 \]
@@ -330,55 +424,82 @@ Otherwise $\mu$ lies in one of Price's 170 retained noncentral bins, whose
 certified denominator is also strictly below $1/0.38055925$. Hence
 the finite maximum of the certified denominators over all 172 bins is strictly
 below $1/0.38055925$. This gives the uniform bound
-$c_{\mathrm{cont}}>0.38055925$. Lemma \ref{lem:transfer} completes the proof.
+$c_{\mathrm{cont}}>0.38055925$. Lemmas \ref{lem:meanrange} and
+\ref{lem:transfer} complete the proof.
 \end{proof}
 
 \section{Verification and scope}
 
 The trusted center proof consists of the canonical certificate, exact decimal
 semantics, the analytic lemmas above, and two directed positive-part
-implementations. The optimization and floating-point root search are outside
-the trusted path.
+implementations. The trusted noncentral dependency consists of Price's pinned
+certificate and checker identities together with a fresh run of the original
+checker on every retained bin. The optimization, exploratory floating-point
+root searches, and untraced solver output are outside the trusted path.
 
 This theorem improves the lower bound but does not determine $c_E$. A gap
 remains to the best reported upper constructions. The noncentral part depends
-on Price's published certificate, and independent external mathematical
-review remains desirable. The repository distinguishes these limitations from
-the finite center computation and records the dated prior-art search used for
-the novelty comparison.
+on Price's public certificate, the retained multipliers are not claimed to be
+optimal, and independent external mathematical review remains desirable. No
+claim is made that rerunning Price's checker constitutes an independently
+implemented noncentral proof.
+
+\section{Data and code availability}
+
+The exact project release preceding this paper is archived at
+\href{https://doi.org/10.5281/zenodo.22308924}
+{doi:10.5281/zenodo.22308924}. It contains the center certificate, both center
+checkers, machine-readable directed endpoints, source hashes, the aggregate
+170-bin replay record, tests, and reproduction commands. The present arXiv
+ancillary bundle additionally contains the complete project-generated
+per-bin CSV, JSON, and log. Price's source and certificate are not
+redistributed because the pinned repository state had no declared license.
+Their repository, commit, paths, hashes, and exact replay command are recorded
+so that a reviewer can obtain them from the original source.
+
+\section*{Acknowledgements}
+
+The author thanks Liam Price for publicly releasing the mean-bin certificate
+and checker on which the noncentral part depends. The author also acknowledges
+the Fourier-analytic framework of Ethan White, the central-bin refinement of
+Haowen Deng, and the publicly released certificate artifacts of Stephen
+Chung, Wenyu Du, and William J. Wesley.
 
 \begin{thebibliography}{9}
 
 \bibitem{Erdos1955}
-P. Erdos,
+P. Erd\H{o}s,
 \emph{Some remarks on number theory},
 Riveon Lematematika 9 (1955), 45--48.
 
 \bibitem{Moser1959}
 L. Moser,
-\emph{On the minimum overlap problem of Erdos},
+\emph{On the minimum overlap problem of Erd\H{o}s},
 Acta Arithmetica 5 (1959), 117--119.
 
-\bibitem{White2022}
+\bibitem{White2023}
 E. P. White,
-\emph{A lower bound for the minimum overlap problem},
-arXiv:2201.05704, 2022.
+\emph{A new bound for Erd\H{o}s' minimum overlap problem},
+Acta Arithmetica 208 (2023), no.~3, 235--255,
+doi:10.4064/aa220728-7-6; arXiv:2201.05704.
+
+\bibitem{Chung2026}
+S. Chung, W. Du, and W. J. Wesley,
+\emph{Autonomous mathematical discovery in an open-world multi-agent
+environment},
+arXiv:2608.23691, 2026.
 
 \bibitem{Price2026}
 L. Price,
-\emph{Erdos problem 36 lower-bound certificate},
-GitHub repository, pinned commit
-\texttt{6bc610e40083ef61a40966dfb5d38612cabc4c5b}, 2026.
-
-\bibitem{Chung2026}
-R. Chung et al.,
-\emph{An improved lower bound for the Erdos minimum-overlap problem},
-arXiv:2608.23691, 2026.
+\emph{A 0.38055470 lower bound for Erd\H{o}s Problem 36},
+GitHub repository,
+\url{https://github.com/Leeham06972452/erdos-36-lower-bound},
+commit \texttt{6bc610e}, 2026.
 
 \bibitem{Deng2026}
 H. Deng,
-\emph{A certified lower bound for Erdos problem 36},
-Zenodo, doi:10.5281/zenodo.22279894, 2026.
+\emph{A sharper certified lower bound for Erd\H{o}s' minimum-overlap problem},
+version 1.0.1, Zenodo, doi:10.5281/zenodo.22279895, 2026.
 
 \end{thebibliography}
 

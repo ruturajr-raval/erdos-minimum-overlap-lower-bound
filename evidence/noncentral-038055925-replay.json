@@ -40,10 +40,19 @@
     "total_ambiguous_cells": 11102,
     "maximum_speed_roots": 46
   },
-  "unretained_output_hashes": {
-    "csv_sha256": "92f68435e5bfd080c0a332013258ac8d1d9e847a8ef06503e34bbe160a5a06ad",
-    "json_sha256": "a02a1d74839d4d18f5187da5515ac1b4267967f723a92d1ed52c6cb52397befc",
-    "log_sha256": "16d233dc699119587c1018fab4c05e463b776a8e06e10167624c7acebf65cf46"
+  "retained_outputs": {
+    "csv": {
+      "path": "evidence/noncentral-038055925-report.csv",
+      "sha256": "92f68435e5bfd080c0a332013258ac8d1d9e847a8ef06503e34bbe160a5a06ad"
+    },
+    "json": {
+      "path": "evidence/noncentral-038055925-report.json",
+      "sha256": "a02a1d74839d4d18f5187da5515ac1b4267967f723a92d1ed52c6cb52397befc"
+    },
+    "log": {
+      "path": "evidence/noncentral-038055925-report.log",
+      "sha256": "16d233dc699119587c1018fab4c05e463b776a8e06e10167624c7acebf65cf46"
+    }
   },
-  "interpretation": "The 170 cited noncentral bins all certify the project target. The unlicensed source package and generated reports are not redistributed."
+  "interpretation": "The 170 cited noncentral bins all certify the project target. The project-generated per-bin reports are retained; the unlicensed source package and certificate are not redistributed."
 }
