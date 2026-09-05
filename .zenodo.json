@@ -1,7 +1,7 @@
 {
   "title": "The Erdos Minimum-Overlap Constant Exceeds 0.38055925",
   "upload_type": "software",
-  "description": "A new center certificate, independently checked with Arb and MPFI, combines with a replay of Price's original checker on 170 noncentral bins to establish c_E > 0.38055925. The release includes the proof manuscript, exact certificate data, verification code, and provenance records.",
+  "description": "A new center certificate, checked by separately implemented Arb and MPFI verifiers, combines with a replay of Price's original checker on 170 noncentral bins to establish c_E > 0.38055925. The release includes the proof manuscript, exact certificate data, verification code, and provenance records.",
   "creators": [
     {
       "name": "Raval, Ruturaj R",

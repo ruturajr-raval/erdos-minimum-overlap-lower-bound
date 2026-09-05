@@ -2,7 +2,7 @@ cff-version: 1.2.0
 message: "If you use this result or software, please cite the paper and archived repository release."
 title: "The Erdos Minimum-Overlap Constant Exceeds 0.38055925"
 type: software
-abstract: "A new center certificate, independently checked with Arb and MPFI, combines with a replay of Price's original checker on 170 noncentral bins to establish c_E > 0.38055925."
+abstract: "A new center certificate, checked by separately implemented Arb and MPFI verifiers, combines with a replay of Price's original checker on 170 noncentral bins to establish c_E > 0.38055925."
 authors:
   - family-names: Raval
     given-names: Ruturaj R

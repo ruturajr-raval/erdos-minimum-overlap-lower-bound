@@ -41,7 +41,7 @@ arXiv perpetual, non-exclusive license
 
 Computer-assisted proof, 7 pages, no figures. The source bundle includes the
 new center certificate, two directed-arithmetic center checkers, and compact
-machine-readable verification records. Full release archive:
+machine-readable verification records. Full v0.2.0 proof-artifact archive:
 doi:10.5281/zenodo.22308924.
 
 ## Mathematics Subject Classification
