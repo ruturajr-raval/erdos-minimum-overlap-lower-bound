@@ -3,13 +3,41 @@ campaign_id: MOP-001
 version: 0.3.0
 release_date: 2026-09-05
 artifact_role: certified lower-bound theorem, certificate, and verification toolkit
-supported_claim: a project-original center certificate combined with Price's published noncentral certificates establishes c_E > 0.38055925
+supported_claim: a project-original center certificate combined with Price's publicly released noncentral certificate establishes c_E > 0.38055925
 claim_status: certified_project_result_with_cited_noncentral_dependency
 new_result_status: established
 artifact_reproducibility_ready: true
 preprint_release_ready: true
 arxiv_source_bundle_ready: true
 external_review_complete: false
+release:
+  tag: v0.3.0
+  commit: c58d520a72dc85dc14dd3c7a5c07d38e7080b589
+  tag_protection:
+    ruleset_id: 22324650
+    enforcement: active
+    pattern: refs/tags/v*
+    rules:
+      - update
+      - deletion
+    bypass_actors: []
+archive:
+  version_doi: 10.5281/zenodo.22313820
+  concept_doi: 10.5281/zenodo.22260847
+  github_assets:
+    source:
+      name: erdos-minimum-overlap-038055925.tar.gz
+      size_bytes: 47883
+      sha256: 03753cd986592973bd739c546a9a463ca1eed1aec9fc0058475462751ff1a18b
+    pdf:
+      name: main.pdf
+      size_bytes: 91674
+      sha256: fa1cec2de32d74a8f42e6a138af22612dc56255ed2902dbfc59a1e8203a10dbb
+  zenodo_snapshot:
+    file: ruturajr-raval/erdos-minimum-overlap-lower-bound-v0.3.0.zip
+    size_bytes: 1595546
+    md5: c44b157c61d3883fecbc098fb7effdd7
+    sha256: 98c308c40868a14304e571ec9854cd62932c37b4b5f46beb464e7480de2a9985
 artifact_checks:
   baseline_reproduced: true
   independent_verifier_passed: true
