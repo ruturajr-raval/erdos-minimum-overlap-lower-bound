@@ -285,6 +285,6 @@ because no license was declared at the audited commit.
 - P. Erdos, "Some Remarks on Number Theory", 1955.
 - L. Moser, "On the Minimum Overlap Problem of Erdos", 1959.
 - E. P. White, arXiv:2201.05704, 2022.
-- R. Chung et al., arXiv:2608.23691, 2026.
+- S. Chung et al., arXiv:2608.23691, 2026.
 - L. Price, `Leeham06972452/erdos-36-lower-bound`, pinned 2026 commit.
 - H. Deng, DOI `10.5281/zenodo.22279894`, 2026.
