@@ -39,6 +39,21 @@ The project-original contribution is a replacement certificate for the two
 central mean bins. The proof cites Price's publicly released Arb-certified
 bounds for the other 170 bins.
 
+The dated 2026-09-04 starting-frontier audit located a strongest stated claim
+of `c_E > 0.380557` and a strongest recorded certificate capability of
+`0.3805581795278582246`. The certified value in this release is
+`0.0000010704721417754` above that recorded capability and `0.00000225` above
+the stated threshold.
+
+## Significance
+
+The result strengthens a universal lower bound for the minimum-overlap
+problem and isolates the improvement in a small, independently checked
+replacement certificate. The certificate-first method, dual-verifier design,
+and explicit dependency boundary can be reused in other rigorous finite
+optimization arguments. This release does not determine the exact constant
+or imply that the retained multipliers are optimal.
+
 ## Verification And Evidence
 
 The frozen center certificate is accepted by:

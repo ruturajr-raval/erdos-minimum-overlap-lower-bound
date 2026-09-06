@@ -26,8 +26,10 @@ Paul Erdos posed the minimum-overlap problem in 1955. It asks for the
 smallest unavoidable peak overlap between the two classes of a balanced
 partition under integer translation. The exact constant has remained open
 for more than seventy years. The dated 2026-09-04 frontier audit compared the
-project target with the strongest located public certificates and the
-remaining upper-bound gap.
+project target with a strongest located stated claim of `c_E > 0.380557` and
+a strongest located recorded certificate capability of
+`0.3805581795278582246`. The new certified target exceeds that recorded
+capability by `0.0000010704721417754`. The remaining upper-bound gap is open.
 
 ### Work And Verified Outcome
 
