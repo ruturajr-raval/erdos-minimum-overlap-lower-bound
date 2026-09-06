@@ -5,6 +5,9 @@
 | Field | Value |
 | --- | --- |
 | Title | The Erdos Minimum-Overlap Constant Exceeds 0.38055925 |
+| Author | Ruturaj R Raval |
+| Affiliation | Independent Researcher |
+| ORCID | [0000-0003-4930-8981](https://orcid.org/0000-0003-4930-8981) |
 | Tagged release | [`v0.3.0`](https://github.com/ruturajr-raval/erdos-minimum-overlap-lower-bound/releases/tag/v0.3.0) |
 | Release date | 2026-09-05 |
 | Audited release commit | `c58d520a72dc85dc14dd3c7a5c07d38e7080b589` |
