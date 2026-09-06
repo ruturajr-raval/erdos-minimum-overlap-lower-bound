@@ -1,8 +1,9 @@
 schema_version: 1
 project: erdos-minimum-overlap-lower-bound
 author: Ruturaj R Raval
+affiliation: Independent Researcher
 orcid: 0000-0003-4930-8981
-updated: 2026-09-04
+updated: 2026-09-06
 status: certified
 target:
   type: certified-lower-bound
@@ -10,9 +11,9 @@ target:
   goal: exceed-the-strongest-independently-verified-prior-lower-bound
 current_supported_claim:
   statement: A project-original center certificate, combined with Price's published noncentral certificates, establishes c_E > 0.38055925.
-  project_original: true
-  project_original_scope: replacement certificate for mean bins 85 and 86
-  cited_scope: Price's Arb-certified bounds for the other 170 mean bins
+  attribution: mixed_project_original_and_cited_dependency
+  project_original_component: replacement certificate for mean bins 85 and 86
+  cited_dependency: Price's Arb-certified bounds for the other 170 mean bins
 candidate_claim:
   statement: c_E > 0.38055925
   certified_value: "0.38055925"

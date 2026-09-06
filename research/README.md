@@ -1,24 +1,25 @@
-# Research Workbench
+# Research Record
 
 This directory records the search for a project-original certified lower bound
 for the Erdos minimum-overlap constant.
 
-The current research branch contains a certified project-original center
+The maintained branch contains a certified project-original center
 certificate. Combined with Price's published noncentral bins, it establishes
 `c_E > 0.38055925`. The artifact release and clean-checkout replay are
-complete. The current work packages the result as a self-contained preprint
-with an explicit dependency boundary.
+complete. Release `v0.3.0` publishes the result with a self-contained
+technical report and an explicit dependency boundary.
 
-## Active Target
+## Current Target
 
-Freeze and publish the certified `c_E > 0.38055925` result without weakening
+Improve the certified lower bound beyond `c_E > 0.38055925` without weakening
 its provenance or claim boundaries. The retained center certificate uses
 adaptive cosine-frequency column generation and is accepted by independent
-Python-Arb and MPFI/C implementations.
+Python-Arb and MPFI/C implementations. Stronger work must cover all 172 bins
+and pass the same dual-verifier and clean-replay gates.
 
 ## Records
 
-- `claim.yaml` defines the exact scope of the candidate result.
+- `claim.yaml` defines the exact scope of the supported result.
 - `release-gate.json` records which promotion requirements have been met.
 - `run.schema.json` defines the minimum metadata for retained computations.
 - `/.research-artifacts/` holds local exploratory outputs and is not tracked.

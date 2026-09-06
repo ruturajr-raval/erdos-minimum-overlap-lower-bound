@@ -2,6 +2,92 @@
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22260847.svg)](https://doi.org/10.5281/zenodo.22260847)
 
+## Project Overview
+
+### Project Metadata
+
+| Field | Value |
+| --- | --- |
+| Author | Ruturaj R Raval |
+| Affiliation | Independent Researcher |
+| ORCID | [0000-0003-4930-8981](https://orcid.org/0000-0003-4930-8981) |
+| Field | Additive combinatorics and rigorous harmonic analysis |
+| Problem | Determine the Erdos minimum-overlap constant `c_E` |
+| Current result | Certified global lower bound `c_E > 0.38055925` |
+| Result type | Project-original global lower-bound improvement |
+| Release | `v0.3.0` |
+| Version DOI | `10.5281/zenodo.22313820` |
+| Concept DOI | `10.5281/zenodo.22260847` |
+| License | Apache-2.0 for project-original material |
+
+### Problem And Context
+
+Paul Erdos posed the minimum-overlap problem in 1955. It asks for the
+smallest unavoidable peak overlap between the two classes of a balanced
+partition under integer translation. The exact constant has remained open
+for more than seventy years. The dated 2026-09-04 frontier audit compared the
+project target with the strongest located public certificates and the
+remaining upper-bound gap.
+
+### Work And Verified Outcome
+
+The project supplies an even dual certificate for the two central mean bins.
+Separately implemented Arb and MPFI directed-arithmetic verifiers accept that
+certificate. Price's previously released certificate supplies the other 170
+mean bins, which are replayed at the same target. Together the finite
+certificates establish `c_E > 0.38055925`.
+
+### Claim Boundary
+
+The two-bin replacement certificate and its independent verification are
+project-original. The other 170 bins depend on Price's prior certificate and
+are not claimed as original work. The project does not determine `c_E`, prove
+optimality of the retained multipliers, or claim completed external
+mathematical review.
+
+### Verification And Reproduction
+
+The center certificate is checked independently in Python with Arb and in C
+with MPFI, MPFR, and GMP. The noncentral bins are replayed from hash-pinned
+upstream inputs without redistributing unlicensed material. Exact commands,
+evidence records, hashes, and the trust boundary are documented below and in
+`docs/`. The theorem replay is CPU-only on a commodity workstation. The C
+checker requires MPFI, MPFR, and GMP; the Python checker requires Arb through
+python-flint. No exploratory optimization run is needed to verify the result.
+
+### Significance, Limitations, And Future Work
+
+This improves a universal lower bound for every sufficiently large balanced
+partition and demonstrates a reusable certificate-first pattern for rigorous
+optimization. The exact constant remains open. The strongest next routes are
+coupled-frequency inequalities, positive-semidefinite constraints, stronger
+dual certificates, and formal verification of the finite analytic reduction.
+
+### Release, Citation, And Author
+
+- **Public repository:** [`ruturajr-raval/erdos-minimum-overlap-lower-bound`](https://github.com/ruturajr-raval/erdos-minimum-overlap-lower-bound).
+- **Tagged release:** [`v0.3.0`](https://github.com/ruturajr-raval/erdos-minimum-overlap-lower-bound/releases/tag/v0.3.0)
+  at audited release commit
+  `c58d520a72dc85dc14dd3c7a5c07d38e7080b589`.
+- **Archive status:** Published on Zenodo at version DOI
+  [`10.5281/zenodo.22313820`](https://doi.org/10.5281/zenodo.22313820);
+  all versions are collected under concept DOI
+  [`10.5281/zenodo.22260847`](https://doi.org/10.5281/zenodo.22260847).
+- **Next acceptance gate:** Any stronger theorem must exceed
+  `0.38055925`, cover all 172 mean bins, pass both independent
+  directed-arithmetic verifiers and clean-checkout replay, refresh the
+  prior-art audit, and preserve the explicit dependency boundary. Independent
+  external mathematical review remains pending.
+- **Provenance boundary:** The replacement certificate for bins 85 and 86 and
+  both center verifiers are project-original. The other 170 bins cite and
+  replay Price's hash-pinned certificate without redistributing its unlicensed
+  source package. Licensed Station baseline material retains its upstream
+  notices.
+
+Citation metadata is in `CITATION.cff`, and release history is in
+`RELEASE_NOTES.md`. The author is Ruturaj R Raval, Independent Researcher,
+ORCID `0000-0003-4930-8981`.
+
 This repository proves the certified lower bound
 
 ```text
@@ -282,9 +368,16 @@ because no license was declared at the audited commit.
 
 ## References
 
-- P. Erdos, "Some Remarks on Number Theory", 1955.
-- L. Moser, "On the Minimum Overlap Problem of Erdos", 1959.
-- E. P. White, arXiv:2201.05704, 2022.
-- S. Chung et al., arXiv:2608.23691, 2026.
-- L. Price, `Leeham06972452/erdos-36-lower-bound`, pinned 2026 commit.
-- H. Deng, DOI `10.5281/zenodo.22279894`, 2026.
+- P. Erdos, [Some Remarks on Number
+  Theory](https://www.renyi.hu/~p_erdos/1955-13.pdf), 1955.
+- L. Moser, "On the Minimum Overlap Problem of Erdos", *Acta Arithmetica*
+  5, 117-119, 1959. No stable primary-source URL was located in the
+  2026-09-04 audit.
+- E. P. White, [Erdos' minimum overlap
+  problem](https://arxiv.org/abs/2201.05704), 2022.
+- S. Chung et al., [arXiv:2608.23691](https://arxiv.org/abs/2608.23691),
+  2026.
+- L. Price, [`Leeham06972452/erdos-36-lower-bound`](https://github.com/Leeham06972452/erdos-36-lower-bound),
+  pinned 2026 commit.
+- H. Deng, [archived certificate record](https://doi.org/10.5281/zenodo.22279894),
+  2026.
