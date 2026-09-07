@@ -324,6 +324,7 @@ refresh the prior-art audit, and preserve the explicit dependency boundary.
 
 - **Public repository:** [`ruturajr-raval/erdos-minimum-overlap-lower-bound`](https://github.com/ruturajr-raval/erdos-minimum-overlap-lower-bound).
 - **Tagged release:** [`v0.3.1`](https://github.com/ruturajr-raval/erdos-minimum-overlap-lower-bound/releases/tag/v0.3.1).
+- **Release commit:** `965fcdec86a3232ed4895e3180c9c7b3d1a85b77`.
 - **Version archive:** Zenodo DOI
   [`10.5281/zenodo.22647743`](https://doi.org/10.5281/zenodo.22647743).
 - **Concept archive:** All versions are collected under Zenodo DOI

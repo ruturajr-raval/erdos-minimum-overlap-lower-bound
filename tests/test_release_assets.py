@@ -94,6 +94,7 @@ def test_release_metadata_matches_archival_assets() -> None:
 
     assert VERSION == "0.3.1"
     assert "tag: v0.3.1" in metadata
+    assert "commit: 965fcdec86a3232ed4895e3180c9c7b3d1a85b77" in metadata
     assert "version_doi: 10.5281/zenodo.22647743" in metadata
     assert "concept_doi: 10.5281/zenodo.22260847" in metadata
     assert f"name: {PDF_NAME}" in metadata

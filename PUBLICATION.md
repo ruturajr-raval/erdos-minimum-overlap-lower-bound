@@ -10,8 +10,8 @@
 | ORCID | [0000-0003-4930-8981](https://orcid.org/0000-0003-4930-8981) |
 | Tagged release | [`v0.3.1`](https://github.com/ruturajr-raval/erdos-minimum-overlap-lower-bound/releases/tag/v0.3.1) |
 | Release date | 2026-09-07 |
-| Release commit | Pending until the `v0.3.1` tag is created |
-| Archive status | Paper-inclusive Zenodo successor draft reserved; publication pending |
+| Release commit | `965fcdec86a3232ed4895e3180c9c7b3d1a85b77` |
+| Archive status | GitHub release and paper-inclusive Zenodo version published; all three public assets downloaded and verified |
 | Underlying theorem release | `v0.3.0` |
 | Version DOI | [`10.5281/zenodo.22647743`](https://doi.org/10.5281/zenodo.22647743) |
 | Concept DOI | [`10.5281/zenodo.22260847`](https://doi.org/10.5281/zenodo.22260847) |

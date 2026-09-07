@@ -16,7 +16,7 @@ release_assets_verified: true
 external_review_complete: false
 release:
   tag: v0.3.1
-  commit: null
+  commit: 965fcdec86a3232ed4895e3180c9c7b3d1a85b77
   underlying_theorem_release: v0.3.0
 archive:
   version_doi: 10.5281/zenodo.22647743
