@@ -1,4 +1,5 @@
 PYTHON ?= python3
+TECTONIC ?= tectonic
 SOURCE_DATE_EPOCH ?= 1788739200
 
 .PHONY: sync test lint typecheck build verify verify-reference verify-independent \
@@ -39,9 +40,9 @@ audit:
 
 paper-build:
 	mkdir -p build/paper
-	SOURCE_DATE_EPOCH=$(SOURCE_DATE_EPOCH) \
-	latexmk -pdf -interaction=nonstopmode -halt-on-error -file-line-error \
-		-output-directory=build/paper paper/main.tex
+	SOURCE_DATE_EPOCH=$(SOURCE_DATE_EPOCH) FORCE_SOURCE_DATE=1 \
+	$(TECTONIC) -X compile paper/main.tex \
+		--outdir build/paper --keep-logs
 
 paper-bundle:
 	$(PYTHON) -m tools.build_arxiv_bundle

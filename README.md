@@ -337,7 +337,8 @@ refresh the prior-art audit, and preserve the explicit dependency boundary.
 
 Suggested citation:
 
-> Raval, Ruturaj R. (2026). *Erdos Minimum-Overlap Lower Bound* (v0.3.1).
+> Raval, Ruturaj R. (2026). *The Erdos Minimum-Overlap Constant Exceeds
+> 0.38055925* (v0.3.1).
 > Zenodo. [https://doi.org/10.5281/zenodo.22647743](https://doi.org/10.5281/zenodo.22647743).
 
 Machine-readable citation metadata is in `CITATION.cff`, and release history

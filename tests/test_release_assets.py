@@ -6,7 +6,9 @@ import pytest
 
 from tools.build_release_assets import (
     CHECKSUMS_NAME,
+    DEFAULT_OUTPUT_DIR,
     PDF_NAME,
+    RELEASE_METADATA,
     SOURCE_NAME,
     VERSION,
     build_release_assets,
@@ -29,14 +31,14 @@ def test_release_assets_are_exact_and_deterministic(tmp_path: Path) -> None:
     pdf.write_bytes(FAKE_PDF)
     output = tmp_path / "release"
 
-    build_release_assets(pdf, output)
+    build_release_assets(pdf, output, metadata_path=None)
     first = _snapshot(output)
-    build_release_assets(pdf, output)
+    build_release_assets(pdf, output, metadata_path=None)
     second = _snapshot(output)
 
     assert first == second
     assert set(first) == {PDF_NAME, SOURCE_NAME, CHECKSUMS_NAME}
-    assert verify_release_assets(output) == {
+    assert verify_release_assets(output, metadata_path=None) == {
         line.split("  ", maxsplit=1)[1]: line.split("  ", maxsplit=1)[0]
         for line in first[CHECKSUMS_NAME].decode("ascii").splitlines()
     }
@@ -46,13 +48,13 @@ def test_release_asset_verification_rejects_tampering(tmp_path: Path) -> None:
     pdf = tmp_path / "paper.pdf"
     pdf.write_bytes(FAKE_PDF)
     output = tmp_path / "release"
-    build_release_assets(pdf, output)
+    build_release_assets(pdf, output, metadata_path=None)
 
     with (output / PDF_NAME).open("ab") as target:
         target.write(b"tampered")
 
     with pytest.raises(ValueError, match="checksum mismatch"):
-        verify_release_assets(output)
+        verify_release_assets(output, metadata_path=None)
 
 
 def test_release_asset_verification_rejects_unexpected_file(
@@ -61,11 +63,11 @@ def test_release_asset_verification_rejects_unexpected_file(
     pdf = tmp_path / "paper.pdf"
     pdf.write_bytes(FAKE_PDF)
     output = tmp_path / "release"
-    build_release_assets(pdf, output)
+    build_release_assets(pdf, output, metadata_path=None)
     (output / "unexpected.txt").write_text("unexpected\n", encoding="ascii")
 
     with pytest.raises(ValueError, match="exact expected set"):
-        verify_release_assets(output)
+        verify_release_assets(output, metadata_path=None)
 
 
 def test_release_asset_verification_rejects_reordered_checksums(
@@ -74,42 +76,34 @@ def test_release_asset_verification_rejects_reordered_checksums(
     pdf = tmp_path / "paper.pdf"
     pdf.write_bytes(FAKE_PDF)
     output = tmp_path / "release"
-    build_release_assets(pdf, output)
+    build_release_assets(pdf, output, metadata_path=None)
     manifest = output / CHECKSUMS_NAME
     lines = manifest.read_text(encoding="ascii").splitlines()
     manifest.write_text("\n".join(reversed(lines)) + "\n", encoding="ascii")
 
     with pytest.raises(ValueError, match="not canonical"):
-        verify_release_assets(output)
+        verify_release_assets(output, metadata_path=None)
 
 
 def test_release_metadata_matches_archival_assets() -> None:
-    metadata = (Path(__file__).parents[1] / "release.yaml").read_text(
-        encoding="ascii"
-    )
+    assert VERSION == "0.3.1"
+    assert verify_release_assets(DEFAULT_OUTPUT_DIR) == {
+        PDF_NAME: "e3a4dad76eb50244f07425e7c75fad43f155db5244cc2ee2eb49fed8ba69574f",
+        SOURCE_NAME: "03753cd986592973bd739c546a9a463ca1eed1aec9fc0058475462751ff1a18b",
+    }
 
-    assert f"version: {VERSION}" in metadata
-    assert "tag: v0.3.1" in metadata
-    assert "version_doi: 10.5281/zenodo.22647743" in metadata
-    assert "concept_doi: 10.5281/zenodo.22260847" in metadata
-    assert f"name: {PDF_NAME}" in metadata
-    assert f"name: {SOURCE_NAME}" in metadata
-    assert "size_bytes: 91673" in metadata
-    assert "size_bytes: 47883" in metadata
-    assert "name: SHA256SUMS" in metadata
-    assert "size_bytes: 244" in metadata
-    assert (
-        "sha256: "
-        "e3a4dad76eb50244f07425e7c75fad43f155db5244cc2ee2eb49fed8ba69574f"
-        in metadata
+
+def test_release_asset_verification_rejects_metadata_hash_mismatch(
+    tmp_path: Path,
+) -> None:
+    metadata = tmp_path / "release.yaml"
+    metadata.write_text(
+        RELEASE_METADATA.read_text(encoding="ascii").replace(
+            "e3a4dad76eb50244f07425e7c75fad43f155db5244cc2ee2eb49fed8ba69574f",
+            "0" * 64,
+            1,
+        ),
+        encoding="ascii",
     )
-    assert (
-        "sha256: "
-        "03753cd986592973bd739c546a9a463ca1eed1aec9fc0058475462751ff1a18b"
-        in metadata
-    )
-    assert (
-        "sha256: "
-        "46945e89783298a43196735b4e3ca0b502841aba55be3cc5998c6598589be92b"
-        in metadata
-    )
+    with pytest.raises(ValueError, match="metadata hash mismatch"):
+        verify_release_assets(DEFAULT_OUTPUT_DIR, metadata)
