@@ -2,6 +2,16 @@
 
 These notes summarize the claim boundary of every tagged public release.
 
+## [v0.3.1](https://github.com/ruturajr-raval/erdos-minimum-overlap-lower-bound/releases/tag/v0.3.1) - 2026-09-07
+
+- Added an explicitly named compiled paper PDF, deterministic paper-source
+  archive, and `SHA256SUMS` for GitHub and Zenodo.
+- This is an archival and documentation patch. The theorem, proof,
+  certificates, data, computations, and claim boundary are unchanged from
+  `v0.3.0`.
+- Assigned version DOI `10.5281/zenodo.22647743`; the stable concept DOI
+  remains `10.5281/zenodo.22260847`.
+
 ## [v0.3.0](https://github.com/ruturajr-raval/erdos-minimum-overlap-lower-bound/releases/tag/v0.3.0) - 2026-09-05
 
 - Added the publication-ready manuscript, deterministic submission source,

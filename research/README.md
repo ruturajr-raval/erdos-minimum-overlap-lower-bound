@@ -9,6 +9,11 @@ certificate. Combined with Price's published noncentral bins, it establishes
 complete. Release `v0.3.0` publishes the result with a self-contained
 technical report and an explicit dependency boundary.
 
+Release `v0.3.1` is a paper-inclusive archival and documentation patch. It
+adds an explicitly named compiled PDF, deterministic source bundle, and
+`SHA256SUMS`; the theorem, proof, certificates, data, and computations remain
+unchanged.
+
 ## Current Target
 
 Improve the certified lower bound beyond `c_E > 0.38055925` without weakening

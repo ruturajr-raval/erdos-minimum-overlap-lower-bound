@@ -1,5 +1,9 @@
+PYTHON ?= python3
+SOURCE_DATE_EPOCH ?= 1788739200
+
 .PHONY: sync test lint typecheck build verify verify-reference verify-independent \
-	verify-center-arb verify-center-mpfi audit paper-build paper-bundle
+	verify-center-arb verify-center-mpfi audit paper-build paper-bundle \
+	paper-release verify-release-assets
 
 sync:
 	uv sync --all-groups
@@ -35,8 +39,15 @@ audit:
 
 paper-build:
 	mkdir -p build/paper
+	SOURCE_DATE_EPOCH=$(SOURCE_DATE_EPOCH) \
 	latexmk -pdf -interaction=nonstopmode -halt-on-error -file-line-error \
 		-output-directory=build/paper paper/main.tex
 
 paper-bundle:
-	python3 tools/build_arxiv_bundle.py
+	$(PYTHON) -m tools.build_arxiv_bundle
+
+paper-release: paper-build
+	$(PYTHON) -m tools.build_release_assets
+
+verify-release-assets:
+	$(PYTHON) -m tools.build_release_assets --verify-only

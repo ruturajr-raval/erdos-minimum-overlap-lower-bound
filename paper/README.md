@@ -21,3 +21,13 @@ The archive is written to
 manuscript, project-original center certificate and checkers, compact evidence
 records, license, and an SHA-256 manifest. Price's unlicensed source and
 certificate are intentionally excluded.
+
+Build the paper-inclusive archival release set with:
+
+```bash
+make paper-release
+make verify-release-assets
+```
+
+The release directory is `dist/release/v0.3.1/` and contains the explicitly
+named compiled PDF, deterministic paper-source archive, and `SHA256SUMS`.

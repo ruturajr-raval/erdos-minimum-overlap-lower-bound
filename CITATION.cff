@@ -11,10 +11,10 @@ authors:
 repository-code: "https://github.com/ruturajr-raval/erdos-minimum-overlap-lower-bound"
 identifiers:
   - type: doi
-    value: "10.5281/zenodo.22313820"
+    value: "10.5281/zenodo.22647743"
 license: Apache-2.0
-version: 0.3.0
-date-released: 2026-09-05
+version: 0.3.1
+date-released: 2026-09-07
 preferred-citation:
   type: article
   title: "The Erdos Minimum-Overlap Constant Exceeds 0.38055925"

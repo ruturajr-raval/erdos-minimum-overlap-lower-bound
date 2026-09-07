@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "erdos-minimum-overlap-lower-bound"
-version = "0.3.0"
+version = "0.3.1"
 description = "Certified c_E > 0.38055925 lower bound for the Erdos minimum-overlap problem"
 readme = "README.md"
 requires-python = ">=3.12,<3.15"
